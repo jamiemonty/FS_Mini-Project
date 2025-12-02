@@ -1,27 +1,46 @@
 .mainDiv {
-  padding: 25px 5px 17px 5px;
+  padding: 18px 5px 18px 5px;
   margin: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
   border: 2px solid #444d44;
   border-radius: 50%;
-  height: 30px;
-  transition: background-color 0.4s;
-  right: 10px;
-  bottom: 10px;
+  height: 56px;
+  width: 56px;
+  background-color: #f9f6f2;
+  transition: background-color 0.3s, border-color 0.3s;
+  right: 20px;
+  bottom: 20px;
   position: fixed;
   z-index: 30;
+  cursor: pointer;
 }
 
 .mainSpan {
   background: transparent;
-  color: #c9c3c3;
+  color: #444d44;
   text-align: center;
   font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
-.mainDiv:hover {
+.mainDiv:hover,
+.mainDiv:focus {
   background-color: #444d44;
-  border: 2px solid #777777;
+  border-color: #777777;
+}
+
+@media screen and (max-width: 768px) {
+  .mainDiv {
+    height: 44px;
+    width: 44px;
+    font-size: 24px;
+    right: 10px;
+    bottom: 10px;
+  }
 }
