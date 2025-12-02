@@ -1,5 +1,14 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f9f6f2;
+}
+
 .main {
   margin: 3rem auto;
   width: 90%;
   max-width: 40rem;
+  flex: 1;
+  padding-bottom: 2rem;
 }
