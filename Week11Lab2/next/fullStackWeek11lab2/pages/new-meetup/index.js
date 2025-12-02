@@ -1,19 +1,19 @@
-// our-dimain.com/new-meetup
-import NewMeetupForm from '../../components/meetups/NewMeetupForm'
+// our-domain.com/new-book
+import NewBookForm from '../../components/books/NewBookForm';
 import { useRouter } from 'next/router';
-import GlobalContext from "../../pages/store/globalContext"
-import { useContext } from 'react'
+import GlobalContext from "../../pages/store/globalContext";
+import { useContext } from 'react';
 
-function NewMeetupPage() {
-    const router = useRouter()
-    const globalCtx = useContext(GlobalContext)
+function NewBookPage() {
+  const router = useRouter();
+  const globalCtx = useContext(GlobalContext);
 
-    async function addMeetupHandler(enteredMeetupData)  {
-        await globalCtx.updateGlobals({cmd: 'addMeeting', newVal: enteredMeetupData})
-        router.push('/');
-    }
+  async function addBookHandler(enteredBookData) {
+    await globalCtx.updateGlobals({ cmd: 'addBook', newVal: enteredBookData });
+    router.push('/');
+  }
 
-    return <NewMeetupForm onAddMeetup={addMeetupHandler} />
+  return <NewBookForm onAddBook={addBookHandler} />;
 }
 
-export default NewMeetupPage
+export default NewBookPage;
