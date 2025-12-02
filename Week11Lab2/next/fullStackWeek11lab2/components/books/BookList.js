@@ -1,16 +1,19 @@
-import MeetupItem from './BookItem';
-import classes from './MeetupList.module.css';
+import BookItem from './BookItem';
+import classes from './BookList.module.css';
 
-function MeetupList(props) {
+function BookList(props) {
   return (
     <ul className={classes.list}>
-      {props.meetups.map((meetup) => (
-        <MeetupItem
-          key={meetup._id}
-          id={meetup.meetingId}
-          image={meetup.image}
-          title={meetup.title}
-          address={meetup.address}
+      {props.meetups.map((book) => (
+        <BookItem
+          key={book.id}
+          id={book.id}
+          coverImage={book.coverImage}
+          title={book.title}
+          author={book.author}
+          publishedDate={book.publishedDate}
+          description={book.description}
+          rsvpCount={book.rsvpCount}
         />
       ))}
     </ul>
