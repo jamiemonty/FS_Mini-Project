@@ -1,14 +1,15 @@
 .mainDiv {
-  padding: 25px 5px;
+  padding: 12px 18px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 46px;
-  background-color: transparent;
+  min-height: 40px;
+  background-color: #f9f6f2;
   border: 2px solid #444d44;
-  border-radius: 10px;
-  margin: 5px;
-  transition: background-color 0.4s;
+  border-radius: 8px;
+  margin: 8px;
+  transition: background-color 0.3s, border-color 0.3s;
+  cursor: pointer;
 }
 
 .textDiv {
@@ -22,26 +23,31 @@
   align-items: center;
   justify-content: center;
   background: transparent;
-  color: white;
-  font-size: 25px;
+  color: #444d44;
+  font-size: 22px;
+  margin-left: 8px;
 }
 
-.mainDiv:hover {
+.mainDiv:hover,
+.mainDiv:focus {
   background-color: #444d44;
-  border: 2px solid #777777;
+  border-color: #777777;
 }
 
 .mainText {
-  color: white;
+  color: #222;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  margin: 0px;
+  font-size: 15px;
+  margin: 0;
   pointer-events: none;
 }
 
 @media screen and (max-width: 768px) {
   .mainDiv {
-    display: none;
+    width: 100%;
+    min-width: 120px;
+    font-size: 13px;
+    padding: 10px 8px;
   }
 }

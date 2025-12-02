@@ -1,24 +1,29 @@
-import classes from "./Button.module.css"
+import classes from "./Button.module.css";
 
 export default function Button(props) {
-  let styleObj = { maxWidth: props.maxWidth, minWidth: props.maxWidth }
+  const styleObj = { maxWidth: props.maxWidth, minWidth: props.maxWidth };
 
-  if(props.hide) { /* Move the show / hide code to the component itself: */
-    return null
+  if (props.hide) {
+    return null;
   }
 
   return (
-    <div className={classes.mainDiv} style={styleObj} onClick={() => props.onClickHandler()} >
-      <div className={classes.textDiv}>
-        <p className={classes.mainText}>{props.text1}</p>
-        {props.text2 != undefined && <p className={classes.mainText}>{props.text2}</p>}
-      </div>
-      {props.icon != undefined &&
-        <div className={classes.iconDiv}>
-           {props.icon}
-        </div>
-      }
-    </div>
-  )
+    <button
+      className={classes.mainDiv}
+      style={styleObj}
+      type={props.type || "button"}
+      onClick={props.onClickHandler}
+      disabled={props.disabled}
+    >
+      <span className={classes.textDiv}>
+        <span className={classes.mainText}>{props.text1}</span>
+        {props.text2 && <span className={classes.mainText}>{props.text2}</span>}
+      </span>
+      {props.icon && (
+        <span className={classes.iconDiv}>
+          {props.icon}
+        </span>
+      )}
+    </button>
+  );
 }
-
