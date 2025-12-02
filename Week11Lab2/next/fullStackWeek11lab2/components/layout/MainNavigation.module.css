@@ -4,15 +4,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color:  #1a2920;
+  background-color: #1a2920;
   padding: 0 10%;
   color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .logo {
   font-size: 2rem;
   color: white;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .header ul {
@@ -29,12 +31,16 @@
 
 .header a {
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .header a:hover,
 .header a:active,
 .header a.active {
-  color: white;
+  background: #444d44;
+  color: #ffe2ed;
 }
