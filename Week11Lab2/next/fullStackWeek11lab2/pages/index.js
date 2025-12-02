@@ -1,14 +1,13 @@
-import MeetupList from '../components/meetups/MeetupList'
+import BookList from '../components/books/BookList';
 import { useContext } from "react";
-import GlobalContext from "./store/globalContext"
+import GlobalContext from "./store/globalContext";
 
 function HomePage() {
-    const globalCtx = useContext(GlobalContext)
+    const globalCtx = useContext(GlobalContext);
 
-    if (globalCtx.theGlobalObject.dataLoaded == true) {
-        return <MeetupList meetups={globalCtx.theGlobalObject.meetings} />
+    if (globalCtx.theGlobalObject.dataLoaded === true) {
+        return <BookList books={globalCtx.theGlobalObject.books} />;
     }
-    return <div>Loading data from database, please wait . . . </div>
+    return <div>Loading data from database, please wait . . . </div>;
 }
-
 export default HomePage;
