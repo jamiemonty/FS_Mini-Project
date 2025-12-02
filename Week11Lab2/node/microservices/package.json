@@ -9,6 +9,7 @@
     "aws-sdk": "^2.1046.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "csv-reader": "^1.0.8",
     "csv-writer": "^1.6.0",
     "debug": "~2.6.9",

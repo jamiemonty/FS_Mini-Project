@@ -20,4 +20,4 @@ function BookList(props) {
   );
 }
 
-export default MeetupList;
+export default BookList;

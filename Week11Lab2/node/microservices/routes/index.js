@@ -7,105 +7,93 @@ let Schema = require('mongoose').Schema;
 let oldMong = new Mongoose();
 oldMong.connect('mongodb://127.0.0.1:27017/db');
 
-let meetingSchema = new Schema({
-  meetingId: String,
+// Define the Book schema
+let bookSchema = new Schema({
+  bookId: String,
   title: String,
-  image: String,
-  address: String,
+  author: String,
+  publishDate: String,
+  coverImage: String,
   description: String
-}, { collection: 'meetings' });
+}, { collection: 'books' });
 
-let meetings = oldMong.model('meetings', meetingSchema);
+let books = oldMong.model('books', bookSchema);
 
 // Admin server page
 router.get('/', async function (req, res, next) {
   res.render('index');
 });
 
-
-
-
-// Crud
-router.post('/createMeeting', async function (req, res, next) {
-  let retVal = { response: "fail" }
-  await meetings.create(req.body,
-    function (err, res) {
-      if (!err) {
-        retVal = { response: "success" }
-      }
+// CREATE
+router.post('/createBook', async function (req, res, next) {
+  let retVal = { response: "fail" };
+  await books.create(req.body, function (err, result) {
+    if (!err) {
+      retVal = { response: "success" };
     }
-  )
+  });
   res.json(retVal);
 });
 
-// cRud   Should use GET . . . we'll fix this is Cloud next term
-router.post('/readMeeting', async function (req, res, next) {
+// READ
+router.post('/readBook', async function (req, res, next) {
   let data;
   if (req.body.cmd == 'all') {
-    data = await meetings.find().lean()
+    data = await books.find().lean();
+  } else {
+    data = await books.find({ _id: req.body._id }).lean();
   }
-  else {
-    data = await meetings.find({ _id: req.body._id }).lean()
-  }
-  res.json({ meetings: data });
-})
+  res.json({ books: data });
+});
 
-// crUd   Should use PUT . . . we'll fix this is Cloud next term
-router.post('/updateMeeting', async function (req, res, next) {
-  let retVal = { response: "fail" }
-  await meetings.findOneAndUpdate({ _id: req.body._id }, req.body,
-    function (err, res) {
-      if (!err) {
-        retVal = { response: "success" }
-      }
+// UPDATE
+router.post('/updateBook', async function (req, res, next) {
+  let retVal = { response: "fail" };
+  await books.findOneAndUpdate({ _id: req.body._id }, req.body, function (err, result) {
+    if (!err) {
+      retVal = { response: "success" };
     }
-  )
+  });
   res.json(retVal);
 });
 
-// cruD   Should use DELETE . . . we'll fix this is Cloud next term
-router.post('/deleteMeeting', async function (req, res, next) {
-  let retVal = { response: "fail" }
-  await meetings.deleteOne({ _id: req.body._id },
-    function (err, res) {
-      if (!err) {
-        retVal = { response: "success" }
-      }
+// DELETE
+router.post('/deleteBook', async function (req, res, next) {
+  let retVal = { response: "fail" };
+  await books.deleteOne({ _id: req.body._id }, function (err, result) {
+    if (!err) {
+      retVal = { response: "success" };
     }
-  )
+  });
   res.json(retVal);
 });
 
-
-
-
-
-router.post('/getMeetings', async function (req, res, next) {
-  const meetings = await getMeetings();
-  res.json(meetings);
+// Helper endpoint: get all books
+router.post('/getBooks', async function (req, res, next) {
+  const result = await getBooks();
+  res.json(result);
 });
 
-async function getMeetings() {
-  data = await meetings.find().lean();
-  return { meetings: data };
+async function getBooks() {
+  const data = await books.find().lean();
+  return { books: data };
 }
 
-router.post('/saveMeeting', async function (req, res, next) {
-  const meetings = await saveMeeting(req.body);
-  res.json(meetings);
+// Helper endpoint: save one book
+router.post('/saveBook', async function (req, res, next) {
+  const result = await saveBook(req.body);
+  res.json(result);
 });
 
-async function saveMeeting(theMeeting) {
-  console.log('theMeeting: ' + theMeeting);
-  await meetings.create(theMeeting,
-    function (err, res) {
-      if (err) {
-        console.log('Could not insert new meeting')
-        return { saveMeetingResponse: "fail" };
-      }
+async function saveBook(theBook) {
+  console.log('theBook: ' + JSON.stringify(theBook));
+  await books.create(theBook, function (err, result) {
+    if (err) {
+      console.log('Could not insert new book');
+      return { saveBookResponse: "fail" };
     }
-  )
-  return { saveMeetingResponse: "success" };
+  });
+  return { saveBookResponse: "success" };
 }
 
 module.exports = router;

@@ -1,5 +1,5 @@
 import Card from '../ui/Card';
-import classes from './MeetupItem.module.css';
+import classes from './BookItem.module.css';
 import { useRouter } from 'next/router';
 
 function BookItem(props) {
