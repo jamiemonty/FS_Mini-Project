@@ -4,7 +4,7 @@ import classes from './BookList.module.css';
 function BookList(props) {
   return (
     <ul className={classes.list}>
-      {props.meetups.map((book) => (
+      {(props.books || []).map((book) => (
         <BookItem
           key={book.id}
           id={book.id}

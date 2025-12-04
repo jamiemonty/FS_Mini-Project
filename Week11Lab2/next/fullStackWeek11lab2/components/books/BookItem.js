@@ -1,6 +1,7 @@
 import Card from '../ui/Card';
 import classes from './BookItem.module.css';
 import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
 function BookItem(props) {
   const router = useRouter();

@@ -5,7 +5,7 @@ import classes from './NewBookForm.module.css';
 
 function NewBookForm(props) {
   const titleInputRef = useRef();
-  const authonInputRef = useRef();
+  const authorInputRef = useRef();
   const coverImageInputRef = useRef();
   const publishedDateInputRef = useRef();
   const descriptionInputRef = useRef();
@@ -47,7 +47,7 @@ function NewBookForm(props) {
         </div>
         <div className={classes.control}>
           <label htmlFor='image'>Cover Image URL</label>
-          <input type='url' required id='coverImage' ref={imageInputRef} />
+          <input type='url' required id='coverImage' ref={coverImageInputRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor='description'>Description</label>

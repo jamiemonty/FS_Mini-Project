@@ -27,9 +27,10 @@ export function GlobalContextProvider(props) {
         });
         let data = await response.json();
         setGlobals((previousGlobals) => {
-            const newGlobals = { ...previousGlobals };
+            const newGlobals = JSON.parse(JSON.stringify(previousGlobals));
             newGlobals.books = data.books || [];
             newGlobals.dataLoaded = true;
+            console.log('Books fetched:', newGlobals.books);
             return newGlobals;
         });
     }
