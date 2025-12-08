@@ -23,7 +23,11 @@ let mountainSchema = new Schema({
   location: String,
   mountainLocation: String,
   image: String,
-  rating: Number
+  rating: Number,
+  description: String,
+  difficulty: String,
+  elevation: String,
+  bestSeason: String
 }, { collection: 'mountains' });
 
 let trailSchema = new Schema({

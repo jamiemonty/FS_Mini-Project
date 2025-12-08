@@ -326,6 +326,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  cursor: pointer;
 }
 
 .mountainCard:hover {
@@ -518,12 +519,20 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: none;
+  background: rgba(255, 255, 255, 0.9);
   border: none;
   font-size: 2rem;
   cursor: pointer;
-  color: #666;
-  transition: color 0.3s;
+  color: #2c5f2d;
+  transition: all 0.3s;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .closeBtn:hover {
@@ -611,6 +620,191 @@
   box-shadow: 0 6px 16px rgba(44, 95, 45, 0.4);
 }
 
+.detailModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+.detailModalContent {
+  background: white;
+  border-radius: 20px;
+  max-width: 900px;
+  width: 100%;
+  position: relative;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.detailImage {
+  height: 400px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.detailOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.detailTitle {
+  color: white;
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: 900;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.detailRating {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 253, 248, 0.95));
+  backdrop-filter: blur(8px);
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #2c5f2d;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.detailBody {
+  padding: 2.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.detailSection {
+  margin-bottom: 2rem;
+}
+
+.detailSection h3 {
+  color: #2c5f2d;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.detailDescription {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  background: linear-gradient(135deg, #f8fdf8 0%, #f0f7f0 100%);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #97bc62;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fdf8 0%, #f0f7f0 100%);
+  border-radius: 12px;
+  border-left: 4px solid #97bc62;
+  transition: all 0.3s ease;
+}
+
+.detailItem:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(44, 95, 45, 0.15);
+}
+
+.detailIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.detailLabel {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.detailValue {
+  font-size: 1.1rem;
+  color: #2c5f2d;
+  font-weight: 700;
+}
+
+.detailActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.detailMapBtn,
+.detailReviewBtn {
+  flex: 1;
+  padding: 1.2rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.detailMapBtn {
+  background: linear-gradient(135deg, #4a7c59 0%, #2c5f2d 100%);
+  color: white;
+}
+
+.detailMapBtn:hover {
+  background: linear-gradient(135deg, #3d6647 0%, #234d24 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(44, 95, 45, 0.4);
+}
+
+.detailReviewBtn {
+  background: linear-gradient(135deg, #97bc62 0%, #5a8f3a 100%);
+  color: white;
+}
+
+.detailReviewBtn:hover {
+  background: linear-gradient(135deg, #7fa050 0%, #4a7530 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(90, 143, 58, 0.4);
+}
+
 @media (max-width: 768px) {
   .searchBox {
     flex-direction: column;
@@ -630,5 +824,29 @@
   
   .modalContent {
     padding: 2rem;
+  }
+
+  .detailModal {
+    padding: 1rem;
+  }
+
+  .detailImage {
+    height: 250px;
+  }
+
+  .detailTitle {
+    font-size: 1.8rem;
+  }
+
+  .detailBody {
+    padding: 1.5rem;
+  }
+
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .detailActions {
+    flex-direction: column;
   }
 }
