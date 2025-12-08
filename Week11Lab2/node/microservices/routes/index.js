@@ -64,60 +64,187 @@ let gearSchema = new Schema({
   shopUrl: String
 }, { collection: 'gear' });
 
+let reviewSchema = new Schema({
+  mountainId: String,
+  mountainName: String,
+  userName: String,
+  userEmail: String,
+  rating: Number,
+  comment: String,
+  date: { type: Date, default: Date.now }
+}, { collection: 'reviews' });
+
 let users = oldMong.model('users', userSchema);
 let mountains = oldMong.model('mountains', mountainSchema);
 let trails = oldMong.model('trails', trailSchema);
 let maps = oldMong.model('maps', mapSchema);
 let camping = oldMong.model('camping', campingSchema);
 let gear = oldMong.model('gear', gearSchema);
+let reviews = oldMong.model('reviews', reviewSchema);
 
-// USER ROUTES
-router.post('/getUsers', async function (req, res, next) {
-  const data = await users.find().lean();
+// Helper functions for CRUD operations
+const createCRUDRoutes = (model, basePath) => {
+  router.post(`/get${basePath}`, async (req, res) => {
+    const data = await model.find().lean();
+    res.json(data);
+  });
+
+  router.post(`/get${basePath.slice(0, -1)}`, async (req, res) => {
+    const data = await model.findOne({ _id: req.body.id }).lean();
+    res.json(data);
+  });
+
+  router.post(`/create${basePath.slice(0, -1)}`, async (req, res) => {
+    try {
+      await model.create(req.body);
+      res.json({ response: "success" });
+    } catch (err) {
+      res.json({ response: "fail" });
+    }
+  });
+
+  router.post(`/update${basePath.slice(0, -1)}`, async (req, res) => {
+    try {
+      await model.findOneAndUpdate({ _id: req.body.id }, req.body);
+      res.json({ response: "success" });
+    } catch (err) {
+      res.json({ response: "fail" });
+    }
+  });
+
+  router.post(`/delete${basePath.slice(0, -1)}`, async (req, res) => {
+    try {
+      await model.deleteOne({ _id: req.body.id });
+      res.json({ response: "success" });
+    } catch (err) {
+      res.json({ response: "fail" });
+    }
+  });
+};
+
+// Generate CRUD routes for all models
+createCRUDRoutes(users, 'Users');
+createCRUDRoutes(trails, 'Trails');
+createCRUDRoutes(maps, 'Maps');
+createGearRoutes();
+createReviewRoutes();
+
+// Camping routes with custom naming
+router.post('/getCampingSites', async (req, res) => {
+  const data = await camping.find().lean();
   res.json(data);
 });
 
-router.post('/getUser', async function (req, res, next) {
-  const data = await users.findOne({ _id: req.body.id }).lean();
+router.post('/getCampingSite', async (req, res) => {
+  const data = await camping.findOne({ _id: req.body.id }).lean();
   res.json(data);
 });
 
-router.post('/createUser', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await users.create(req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
+router.post('/createCampingSite', async (req, res) => {
+  try {
+    await camping.create(req.body);
+    res.json({ response: "success" });
+  } catch (err) {
+    res.json({ response: "fail" });
+  }
 });
 
-router.post('/updateUser', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await users.findOneAndUpdate({ _id: req.body.id }, req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
+router.post('/updateCampingSite', async (req, res) => {
+  try {
+    await camping.findOneAndUpdate({ _id: req.body.id }, req.body);
+    res.json({ response: "success" });
+  } catch (err) {
+    res.json({ response: "fail" });
+  }
 });
 
-router.post('/deleteUser', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await users.deleteOne({ _id: req.body.id }, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
+router.post('/deleteCampingSite', async (req, res) => {
+  try {
+    await camping.deleteOne({ _id: req.body.id });
+    res.json({ response: "success" });
+  } catch (err) {
+    res.json({ response: "fail" });
+  }
 });
 
-// MOUNTAIN ROUTES
-router.post('/getMountains', async function (req, res, next) {
+// Gear routes helper
+function createGearRoutes() {
+  router.post('/getGear', async (req, res) => {
+    const data = await gear.find().lean();
+    res.json(data);
+  });
+
+  router.post('/getGearItem', async (req, res) => {
+    const data = await gear.findOne({ _id: req.body.id }).lean();
+    res.json(data);
+  });
+
+  router.post('/createGear', async (req, res) => {
+    try {
+      await gear.create(req.body);
+      res.json({ response: "success" });
+    } catch (err) {
+      res.json({ response: "fail" });
+    }
+  });
+
+  router.post('/updateGear', async (req, res) => {
+    try {
+      await gear.findOneAndUpdate({ _id: req.body.id }, req.body);
+      res.json({ response: "success" });
+    } catch (err) {
+      res.json({ response: "fail" });
+    }
+  });
+
+  router.post('/deleteGear', async (req, res) => {
+    try {
+      await gear.deleteOne({ _id: req.body.id });
+      res.json({ response: "success" });
+    } catch (err) {
+      res.json({ response: "fail" });
+    }
+  });
+}
+
+// Review routes helper
+function createReviewRoutes() {
+  router.post('/getReviews', async (req, res) => {
+    const data = await reviews.find({ mountainId: req.body.mountainId }).lean();
+    res.json(data);
+  });
+
+  router.post('/createReview', async (req, res) => {
+    try {
+      await reviews.create(req.body);
+      res.json({ response: "success" });
+    } catch (err) {
+      res.json({ response: "fail" });
+    }
+  });
+
+  router.post('/deleteReview', async (req, res) => {
+    try {
+      await reviews.deleteOne({ _id: req.body.id });
+      res.json({ response: "success" });
+    } catch (err) {
+      res.json({ response: "fail" });
+    }
+  });
+}
+
+// Mountain routes with search functionality
+router.post('/getMountains', async (req, res) => {
   const data = await mountains.find().lean();
   res.json(data);
 });
 
-router.post('/getMountain', async function (req, res, next) {
+router.post('/getMountain', async (req, res) => {
   const data = await mountains.findOne({ _id: req.body.id }).lean();
   res.json(data);
 });
 
-router.post('/searchMountain', async function (req, res, next) {
+router.post('/searchMountain', async (req, res) => {
   const searchTerm = req.body.mountainId;
   const data = await mountains.find({
     $or: [
@@ -129,19 +256,16 @@ router.post('/searchMountain', async function (req, res, next) {
   res.json(data);
 });
 
-router.post('/createMountain', async function (req, res, next) {
+router.post('/createMountain', async (req, res) => {
   try {
-    console.log('Creating mountain:', req.body);
-    const result = await mountains.create(req.body);
-    console.log('Mountain created:', result);
+    await mountains.create(req.body);
     res.json({ response: "success" });
   } catch (err) {
-    console.error('Error creating mountain:', err);
-    res.json({ response: "fail", error: err.message });
+    res.json({ response: "fail" });
   }
 });
 
-router.post('/updateMountain', async function (req, res, next) {
+router.post('/updateMountain', async (req, res) => {
   try {
     await mountains.findOneAndUpdate({ _id: req.body.id }, req.body);
     res.json({ response: "success" });
@@ -150,7 +274,7 @@ router.post('/updateMountain', async function (req, res, next) {
   }
 });
 
-router.post('/deleteMountain', async function (req, res, next) {
+router.post('/deleteMountain', async (req, res) => {
   try {
     await mountains.deleteOne({ _id: req.body.id });
     res.json({ response: "success" });
@@ -159,144 +283,6 @@ router.post('/deleteMountain', async function (req, res, next) {
   }
 });
 
-// TRAIL ROUTES
-router.post('/getTrails', async function (req, res, next) {
-  const data = await trails.find().lean();
-  res.json(data);
-});
 
-router.post('/getTrail', async function (req, res, next) {
-  const data = await trails.findOne({ _id: req.body.id }).lean();
-  res.json(data);
-});
-
-router.post('/createTrail', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await trails.create(req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-router.post('/updateTrail', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await trails.findOneAndUpdate({ _id: req.body.id }, req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-router.post('/deleteTrail', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await trails.deleteOne({ _id: req.body.id }, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-// MAP ROUTES
-router.post('/getMaps', async function (req, res, next) {
-  const data = await maps.find().lean();
-  res.json(data);
-});
-
-router.post('/getMap', async function (req, res, next) {
-  const data = await maps.findOne({ _id: req.body.id }).lean();
-  res.json(data);
-});
-
-router.post('/createMap', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await maps.create(req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-router.post('/updateMap', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await maps.findOneAndUpdate({ _id: req.body.id }, req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-router.post('/deleteMap', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await maps.deleteOne({ _id: req.body.id }, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-// CAMPING ROUTES
-router.post('/getCampingSites', async function (req, res, next) {
-  const data = await camping.find().lean();
-  res.json(data);
-});
-
-router.post('/getCampingSite', async function (req, res, next) {
-  const data = await camping.findOne({ _id: req.body.id }).lean();
-  res.json(data);
-});
-
-router.post('/createCampingSite', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await camping.create(req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-router.post('/updateCampingSite', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await camping.findOneAndUpdate({ _id: req.body.id }, req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-router.post('/deleteCampingSite', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await camping.deleteOne({ _id: req.body.id }, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-// GEAR ROUTES
-router.post('/getGear', async function (req, res, next) {
-  const data = await gear.find().lean();
-  res.json(data);
-});
-
-router.post('/getGearItem', async function (req, res, next) {
-  const data = await gear.findOne({ _id: req.body.id }).lean();
-  res.json(data);
-});
-
-router.post('/createGear', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await gear.create(req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-router.post('/updateGear', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await gear.findOneAndUpdate({ _id: req.body.id }, req.body, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
-
-router.post('/deleteGear', async function (req, res, next) {
-  let retVal = { response: "fail" };
-  await gear.deleteOne({ _id: req.body.id }, function (err, result) {
-    if (!err) retVal = { response: "success" };
-  });
-  res.json(retVal);
-});
 
 module.exports = router;

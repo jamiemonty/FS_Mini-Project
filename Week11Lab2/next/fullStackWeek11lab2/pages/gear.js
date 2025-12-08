@@ -13,7 +13,7 @@ export default function GearPage() {
       router.push('/login');
       return;
     }
-    fetch('/api/get-gear')
+    fetch('/api/gear/get-gear')
       .then(res => res.json())
       .then(data => setGear(data));
   }, []);
@@ -34,7 +34,7 @@ export default function GearPage() {
             <div className={classes.badge}>{item.category}</div>
             {item.recommended && <div className={classes.recommendedBadge}>⭐ Recommended</div>}
             <p className={classes.description}>{item.description}</p>
-            <p className={classes.price}><strong>💰 Price:</strong> {item.price}</p>
+            <p className={classes.price} style={{color: '#4CAF50'}}><strong>💰 Price:</strong> {item.price}</p>
             {item.shopUrl && <p className={classes.shopLink}>🛒 Click to shop</p>}
           </div>
         ))}

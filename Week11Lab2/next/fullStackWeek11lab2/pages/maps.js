@@ -13,7 +13,7 @@ export default function MapsPage() {
       router.push('/login');
       return;
     }
-    fetch('/api/get-maps')
+    fetch('/api/maps/get-maps')
       .then(res => res.json())
       .then(data => setMaps(data));
   }, []);

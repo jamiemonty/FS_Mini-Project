@@ -2,7 +2,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  background: linear-gradient(180deg, #f0f7f0 0%, #ffffff 50%, #f8fdf8 100%);
+  background: linear-gradient(180deg, #e8ecf0 0%, #ffffff 50%, #f5f7fa 100%);
   min-height: 100vh;
 }
 
@@ -10,10 +10,10 @@
   text-align: center;
   margin-bottom: 0;
   padding: 5rem 2rem 4rem;
-  background: linear-gradient(135deg, #2c5f2d 0%, #4a7c59 50%, #97bc62 100%);
+  background: linear-gradient(135deg, #5a6c7d 0%, #7a8c9d 50%, #9ab0c5 100%);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(44, 95, 45, 0.3);
+  box-shadow: 0 8px 32px rgba(90, 108, 125, 0.3);
 }
 
 .header::before {
@@ -103,12 +103,12 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #4a7c59;
-  box-shadow: 0 0 0 4px rgba(74, 124, 89, 0.1);
+  border-color: #7a8c9d;
+  box-shadow: 0 0 0 4px rgba(122, 140, 157, 0.1);
 }
 
 .searchButton {
-  background: linear-gradient(135deg, #2c5f2d 0%, #4a7c59 100%);
+  background: linear-gradient(135deg, #5a6c7d 0%, #7a8c9d 100%);
   color: white;
   padding: 1.25rem 3.5rem;
   border: none;
@@ -117,13 +117,13 @@
   font-size: 1.1rem;
   font-weight: 700;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 16px rgba(44, 95, 45, 0.4);
+  box-shadow: 0 6px 16px rgba(90, 108, 125, 0.4);
 }
 
 .searchButton:hover {
-  background: linear-gradient(135deg, #234d24 0%, #3d6647 100%);
+  background: linear-gradient(135deg, #4a5c6d 0%, #6a7c8d 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(44, 95, 45, 0.4);
+  box-shadow: 0 6px 16px rgba(90, 108, 125, 0.4);
 }
 
 .statsBar {
@@ -131,7 +131,7 @@
   justify-content: center;
   gap: 4rem;
   padding: 2rem;
-  background: linear-gradient(135deg, #f8fdf8 0%, #f0f7f0 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf0 100%);
   border-radius: 20px;
   flex-wrap: wrap;
   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
@@ -154,7 +154,7 @@
 .statNumber {
   font-size: 2.5rem;
   font-weight: 900;
-  color: #2c5f2d;
+  color: #5a6c7d;
   text-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -167,13 +167,13 @@
 }
 
 .destinationsSection {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fdf8 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f5f7fa 100%);
   padding: 4rem 0;
 }
 
 .sectionTitle {
   text-align: center;
-  color: #2c5f2d;
+  color: #5a6c7d;
   font-size: 2.5rem;
   margin-bottom: 3rem;
   font-weight: 900;
@@ -205,7 +205,7 @@
 }
 
 .table th {
-  background: linear-gradient(135deg, #2c5f2d 0%, #4a7c59 100%);
+  background: linear-gradient(135deg, #5a6c7d 0%, #7a8c9d 100%);
   color: white;
   font-weight: bold;
   text-transform: uppercase;
@@ -218,7 +218,7 @@
 }
 
 .table tbody tr:hover {
-  background: linear-gradient(135deg, rgba(44, 95, 45, 0.05) 0%, rgba(151, 188, 98, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(90, 108, 125, 0.05) 0%, rgba(154, 176, 197, 0.05) 100%);
   transform: scale(1.002);
 }
 
@@ -227,7 +227,7 @@
 }
 
 .table tbody tr:nth-child(even):hover {
-  background: linear-gradient(135deg, rgba(44, 95, 45, 0.05) 0%, rgba(151, 188, 98, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(90, 108, 125, 0.05) 0%, rgba(154, 176, 197, 0.05) 100%);
 }
 
 .loading {
@@ -237,7 +237,7 @@
 
 .spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #2c5f2d;
+  border-top: 4px solid #5a6c7d;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -268,7 +268,7 @@
 .noResults h3 {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  color: #2c5f2d;
+  color: #5a6c7d;
 }
 
 .noResults p {
@@ -285,9 +285,9 @@
 
 .viewToggle button {
   padding: 1rem 2.5rem;
-  border: 2px solid #2c5f2d;
+  border: 2px solid #5a6c7d;
   background: white;
-  color: #2c5f2d;
+  color: #5a6c7d;
   border-radius: 50px;
   cursor: pointer;
   font-weight: 700;
@@ -298,10 +298,10 @@
 
 .viewToggle button:hover,
 .viewToggle button.active {
-  background: linear-gradient(135deg, #2c5f2d 0%, #4a7c59 100%);
+  background: linear-gradient(135deg, #5a6c7d 0%, #7a8c9d 100%);
   color: white;
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(44, 95, 45, 0.4);
+  box-shadow: 0 6px 20px rgba(90, 108, 125, 0.4);
 }
 
 .cardsGrid {
@@ -322,7 +322,7 @@
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  border: 1px solid rgba(151, 188, 98, 0.2);
+  border: 1px solid rgba(154, 176, 197, 0.2);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -331,8 +331,8 @@
 
 .mountainCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(44, 95, 45, 0.18);
-  border-color: #97bc62;
+  box-shadow: 0 12px 32px rgba(90, 108, 125, 0.18);
+  border-color: #9ab0c5;
 }
 
 .cardImage {
@@ -359,15 +359,15 @@
 }
 
 .ratingBadge {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 253, 248, 0.95));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 250, 0.95));
   backdrop-filter: blur(8px);
   padding: 0.6rem 1.2rem;
   border-radius: 25px;
   font-weight: 700;
   font-size: 1rem;
-  color: #2c5f2d;
+  color: #5a6c7d;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  border: 2px solid rgba(151, 188, 98, 0.3);
+  border: 2px solid rgba(154, 176, 197, 0.3);
   pointer-events: auto;
 }
 
@@ -381,7 +381,7 @@
 
 .mountainName {
   font-size: 1.35rem;
-  color: #2c5f2d;
+  color: #5a6c7d;
   margin: 0 0 1.25rem 0;
   font-weight: 700;
   line-height: 1.3;
@@ -400,14 +400,14 @@
   align-items: center;
   gap: 0.7rem;
   padding: 0.7rem 0.9rem;
-  background: #f8fdf8;
+  background: #f5f7fa;
   border-radius: 8px;
-  border-left: 3px solid #97bc62;
+  border-left: 3px solid #9ab0c5;
   transition: all 0.2s ease;
 }
 
 .infoItem:hover {
-  background: #f0f7f0;
+  background: #e8ecf0;
 }
 
 .infoIcon {
@@ -426,7 +426,7 @@
 
 .infoValue {
   font-size: 0.9rem;
-  color: #2c5f2d;
+  color: #5a6c7d;
   font-weight: 600;
 }
 
@@ -439,7 +439,7 @@
 .mapBtn {
   flex: 1;
   padding: 0.65rem;
-  background: linear-gradient(135deg, #4a7c59 0%, #2c5f2d 100%);
+  background: linear-gradient(135deg, #7a8c9d 0%, #5a6c7d 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -456,15 +456,15 @@
 }
 
 .mapBtn:hover {
-  background: linear-gradient(135deg, #3d6647 0%, #234d24 100%);
+  background: linear-gradient(135deg, #6a7c8d 0%, #4a5c6d 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(44, 95, 45, 0.3);
+  box-shadow: 0 4px 12px rgba(90, 108, 125, 0.3);
 }
 
 .reviewBtn {
   flex: 1;
   padding: 0.65rem;
-  background: linear-gradient(135deg, #97bc62 0%, #5a8f3a 100%);
+  background: linear-gradient(135deg, #9ab0c5 0%, #7a8c9d 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -475,9 +475,9 @@
 }
 
 .reviewBtn:hover {
-  background: linear-gradient(135deg, #7fa050 0%, #4a7530 100%);
+  background: linear-gradient(135deg, #8aa0b5 0%, #6a7c8d 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(90, 143, 58, 0.3);
+  box-shadow: 0 4px 12px rgba(122, 140, 157, 0.3);
 }
 
 .modal {
@@ -536,11 +536,11 @@
 }
 
 .closeBtn:hover {
-  color: #2c5f2d;
+  color: #5a6c7d;
 }
 
 .modalContent h2 {
-  color: #2c5f2d;
+  color: #5a6c7d;
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
 }
@@ -598,13 +598,13 @@
 
 .commentSection textarea:focus {
   outline: none;
-  border-color: #4a7c59;
-  box-shadow: 0 0 0 4px rgba(74, 124, 89, 0.1);
+  border-color: #7a8c9d;
+  box-shadow: 0 0 0 4px rgba(122, 140, 157, 0.1);
 }
 
 .submitBtn {
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #2c5f2d 0%, #4a7c59 100%);
+  background: linear-gradient(135deg, #5a6c7d 0%, #7a8c9d 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -615,9 +615,9 @@
 }
 
 .submitBtn:hover {
-  background: linear-gradient(135deg, #234d24 0%, #3d6647 100%);
+  background: linear-gradient(135deg, #4a5c6d 0%, #6a7c8d 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(44, 95, 45, 0.4);
+  box-shadow: 0 6px 16px rgba(90, 108, 125, 0.4);
 }
 
 .detailModal {
@@ -680,13 +680,13 @@
 }
 
 .detailRating {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 253, 248, 0.95));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 247, 250, 0.95));
   backdrop-filter: blur(8px);
   padding: 0.8rem 1.5rem;
   border-radius: 30px;
   font-weight: 700;
   font-size: 1.2rem;
-  color: #2c5f2d;
+  color: #5a6c7d;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
@@ -701,7 +701,7 @@
 }
 
 .detailSection h3 {
-  color: #2c5f2d;
+  color: #5a6c7d;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
@@ -711,10 +711,10 @@
   font-size: 1.1rem;
   line-height: 1.8;
   color: #555;
-  background: linear-gradient(135deg, #f8fdf8 0%, #f0f7f0 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf0 100%);
   padding: 1.5rem;
   border-radius: 12px;
-  border-left: 4px solid #97bc62;
+  border-left: 4px solid #9ab0c5;
 }
 
 .detailGrid {
@@ -728,15 +728,15 @@
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #f8fdf8 0%, #f0f7f0 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf0 100%);
   border-radius: 12px;
-  border-left: 4px solid #97bc62;
+  border-left: 4px solid #9ab0c5;
   transition: all 0.3s ease;
 }
 
 .detailItem:hover {
   transform: translateX(5px);
-  box-shadow: 0 4px 12px rgba(44, 95, 45, 0.15);
+  box-shadow: 0 4px 12px rgba(90, 108, 125, 0.15);
 }
 
 .detailIcon {
@@ -755,7 +755,7 @@
 
 .detailValue {
   font-size: 1.1rem;
-  color: #2c5f2d;
+  color: #5a6c7d;
   font-weight: 700;
 }
 
@@ -784,25 +784,25 @@
 }
 
 .detailMapBtn {
-  background: linear-gradient(135deg, #4a7c59 0%, #2c5f2d 100%);
+  background: linear-gradient(135deg, #7a8c9d 0%, #5a6c7d 100%);
   color: white;
 }
 
 .detailMapBtn:hover {
-  background: linear-gradient(135deg, #3d6647 0%, #234d24 100%);
+  background: linear-gradient(135deg, #6a7c8d 0%, #4a5c6d 100%);
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(44, 95, 45, 0.4);
+  box-shadow: 0 6px 20px rgba(90, 108, 125, 0.4);
 }
 
 .detailReviewBtn {
-  background: linear-gradient(135deg, #97bc62 0%, #5a8f3a 100%);
+  background: linear-gradient(135deg, #9ab0c5 0%, #7a8c9d 100%);
   color: white;
 }
 
 .detailReviewBtn:hover {
-  background: linear-gradient(135deg, #7fa050 0%, #4a7530 100%);
+  background: linear-gradient(135deg, #8aa0b5 0%, #6a7c8d 100%);
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(90, 143, 58, 0.4);
+  box-shadow: 0 6px 20px rgba(122, 140, 157, 0.4);
 }
 
 @media (max-width: 768px) {

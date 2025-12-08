@@ -1,14 +1,12 @@
 import '../styles/globals.css';
-import Layout from '../components/layout/Layout';
-import { GlobalContextProvider } from './store/globalContext';
+import Header from '../components/layout/Header';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <GlobalContextProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </GlobalContextProvider>
+    <>
+      <Header />
+      <Component {...pageProps} />
+    </>
   );
 }
 export default MyApp;

@@ -13,7 +13,7 @@ export default function CampingPage() {
       router.push('/login');
       return;
     }
-    fetch('/api/get-camping')
+    fetch('/api/camping/get-camping')
       .then(res => res.json())
       .then(data => setSites(data));
   }, []);
@@ -26,7 +26,7 @@ export default function CampingPage() {
         {sites.map((site, index) => (
           <div key={index} className={classes.card}>
             <h3>{site.siteName}</h3>
-            <div className={classes.badge}>{site.price}</div>
+            <div className={classes.badge} style={{background: '#4CAF50'}}>{site.price}</div>
             <p><strong>📍 Location:</strong> {site.location}</p>
             <p><strong>👥 Capacity:</strong> {site.capacity}</p>
             <p><strong>🏕️ Amenities:</strong> {site.amenities}</p>

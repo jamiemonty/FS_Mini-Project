@@ -3,10 +3,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(44, 95, 45, 0.9) 0%, rgba(151, 188, 98, 0.9) 100%),
-              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,300 Q300,100 600,300 T1200,300 L1200,600 L0,600 Z" fill="%23ffffff" opacity="0.1"/></svg>');
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+              url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   text-align: center;
   padding: 2rem;
 }
@@ -57,24 +58,65 @@
 }
 
 .btnPrimary {
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  background: linear-gradient(135deg, #5a6c7d 0%, #8b9eb3 100%);
   color: white;
 }
 
 .btnPrimary:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #4a5c6d 0%, #7b8ea3 100%);
 }
 
 .btnSecondary {
   background: white;
-  color: #2c5f2d;
+  color: #4a5c6d;
 }
 
 .btnSecondary:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0,0,0,0.3);
   background: #f8f9ff;
+}
+
+.btnLogin {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btnLogin:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+}
+
+.btnLogout {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  background: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btnLogout:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  background: #c82333;
 }
 
 @keyframes fadeIn {
