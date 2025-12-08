@@ -2,38 +2,37 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function UserLoginComponent() {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-
-  const adminName = 'admin';
-  const adminPassword = '111';
-  const testName = 'test';
-  const testPassword = '222';
-  const trekAdminName = 'trek';
-  const trekAdminPassword = '333';
 
   const verifyUserDetails = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
-    if (adminName === name && adminPassword === password) {
-      router.push('/list-users');
-      return;
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        router.push('/trek-microservice');
+      } else {
+        setError(data.message || 'Invalid email or password');
+      }
+    } catch (err) {
+      setError('Login failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
-
-    if (testName === name && testPassword === password) {
-      router.push('/trek-microservice');
-      return;
-    }
-
-    if (trekAdminName === name && trekAdminPassword === password) {
-      router.push('/trek-admin');
-      return;
-    }
-
-    setError('Invalid name or password');
   };
 
   return (
@@ -48,15 +47,15 @@ export default function UserLoginComponent() {
           <div className='card-body'>
             <form onSubmit={verifyUserDetails}>
               <div className='form-group mb-2'>
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="email">Email:</label>
                 <input
-                  type="text"
-                  placeholder='Enter User Name'
-                  name='name'
-                  id="name"
+                  type="email"
+                  placeholder='Enter Email'
+                  name='email'
+                  id="email"
                   className='form-control'
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -64,7 +63,7 @@ export default function UserLoginComponent() {
                 <label className='form-label'>Password:</label>
                 <input
                   type="password"
-                  placeholder='Enter User Password'
+                  placeholder='Enter Password'
                   name='password'
                   id="password"
                   className='form-control'
@@ -75,8 +74,8 @@ export default function UserLoginComponent() {
               </div>
               {error && <p className="text-danger">{error}</p>}
               <div>
-                <button className='btn btn-primary mb-2' style={{marginLeft: '10px'}} type="submit">
-                  Login
+                <button className='btn btn-primary mb-2' style={{marginLeft: '10px'}} type="submit" disabled={loading}>
+                  {loading ? 'Logging in...' : 'Login'}
                 </button>
               </div>
             </form>

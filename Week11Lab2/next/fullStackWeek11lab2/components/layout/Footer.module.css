@@ -34,12 +34,16 @@
 
 .footerSection ul li {
   padding: 0.5rem 0;
+}
+
+.footerSection ul li a {
   color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
   cursor: pointer;
   transition: color 0.3s;
 }
 
-.footerSection ul li:hover {
+.footerSection ul li a:hover {
   color: #97bc62;
 }
 
