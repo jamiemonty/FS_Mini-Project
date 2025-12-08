@@ -7,6 +7,7 @@ export default function UserLoginComponent() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const router = useRouter();
 
   const verifyUserDetails = async (e) => {
@@ -25,7 +26,11 @@ export default function UserLoginComponent() {
 
       if (data.success) {
         localStorage.setItem('user', JSON.stringify(data.user));
-        router.push('/trek-microservice');
+        window.dispatchEvent(new Event('login'));
+        setShowPopup(true);
+        setTimeout(() => {
+          router.push('/trek-microservice');
+        }, 1500);
       } else {
         setError(data.message || 'Invalid email or password');
       }
@@ -38,6 +43,17 @@ export default function UserLoginComponent() {
 
   return (
     <div className="container">
+      {showPopup && (
+        <div style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 1000, padding: '1rem 1.5rem', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', background: '#4CAF50', color: 'white', fontWeight: 'bold', animation: 'slideIn 0.3s ease-out' }}>
+          ✅ Successfully logged in!
+        </div>
+      )}
+      <style jsx>{`
+        @keyframes slideIn {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+      `}</style>
       <div className='row'>
         <div className='card col-md-6 offset-md-3'>
           <div className='header'>
@@ -75,11 +91,11 @@ export default function UserLoginComponent() {
               </div>
               {error && <p className="text-danger">{error}</p>}
               <div style={{display: 'flex', gap: '10px', marginLeft: '10px'}}>
-                <button className='btn btn-primary mb-2' type="submit" disabled={loading}>
+                <button className='btn mb-2' type="submit" disabled={loading} style={{ background: '#4CAF50', color: 'white', padding: '0.5rem 1.5rem', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
                   {loading ? 'Logging in...' : 'Login'}
                 </button>
                 <Link href='/register'>
-                  <button className='btn btn-secondary mb-2' type="button">
+                  <button className='btn mb-2' type="button" style={{ background: '#2196F3', color: 'white', padding: '0.5rem 1.5rem', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
                     Register
                   </button>
                 </Link>

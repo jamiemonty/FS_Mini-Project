@@ -62,7 +62,7 @@ export default function TrekComponent() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.icon}>🏔️</div>
+        <div className={styles.icon} style={{filter: 'grayscale(100%) brightness(1.2)'}}>🏔️</div>
         <h1 className={styles.title}>Mountain Explorer</h1>
         <p className={styles.subtitle}>Discover breathtaking peaks and plan your next adventure</p>
       </div>
@@ -171,9 +171,9 @@ export default function TrekComponent() {
                     </a>
                     <button 
                       className={styles.reviewBtn}
-                      onClick={(e) => { e.stopPropagation(); setSelectedMountain(mountain); }}
+                      onClick={(e) => { e.stopPropagation(); router.push(`/mountain-reviews/${mountain._id}`); }}
                     >
-                      ⭐ Review
+                      💬 Reviews
                     </button>
                   </div>
                 </div>
@@ -284,9 +284,9 @@ export default function TrekComponent() {
                 </a>
                 <button 
                   className={styles.detailReviewBtn}
-                  onClick={() => { setDetailView(null); setSelectedMountain(detailView); }}
+                  onClick={() => router.push(`/mountain-reviews/${detailView._id}`)}
                 >
-                  ⭐ Leave a Review
+                  💬 View Reviews
                 </button>
               </div>
             </div>

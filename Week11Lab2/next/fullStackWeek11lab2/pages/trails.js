@@ -13,7 +13,7 @@ export default function TrailsPage() {
       router.push('/login');
       return;
     }
-    fetch('/api/get-trails')
+    fetch('/api/trails/get-trails')
       .then(res => res.json())
       .then(data => setTrails(data));
   }, []);

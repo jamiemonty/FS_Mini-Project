@@ -4,12 +4,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, #1a2920 0%, #2d4a3e 100%);
+  background: linear-gradient(135deg, rgba(70, 80, 90, 0.95) 0%, rgba(100, 110, 120, 0.95) 100%);
   padding: 0 10%;
   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.header.scrolled {
+  height: 3.5rem;
+  padding: 0 5%;
+  background: linear-gradient(135deg, rgba(70, 80, 90, 0.98) 0%, rgba(100, 110, 120, 0.98) 100%);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .logoLink {
@@ -22,12 +31,23 @@
 
 .icon {
   font-size: 2rem;
+  transition: font-size 0.3s ease;
+}
+
+.scrolled .icon {
+  font-size: 1.5rem;
 }
 
 .logo {
   font-size: 1.5rem;
   color: white;
-  font-weight: bold;
+  font-weight: 900;
+  transition: font-size 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.scrolled .logo {
+  font-size: 1.2rem;
 }
 
 .logoLink:hover .logo {
@@ -55,12 +75,18 @@
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.scrolled .nav a {
+  font-size: 0.95rem;
+  padding: 0.4rem 0.8rem;
 }
 
 .nav a:hover {
-  background: #444d44;
-  color: #ffe2ed;
+  background: #5a6a7a;
+  color: #fff;
 }
 
 .addButton {
@@ -97,10 +123,11 @@
   display: flex;
   align-items: center;
   font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .dropdownToggle:hover {
-  background: #444d44;
+  background: #5a6a7a;
 }
 
 .dropdownMenu {

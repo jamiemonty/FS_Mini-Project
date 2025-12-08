@@ -5,12 +5,15 @@ import { isAdmin } from '../utils/auth';
 
 export default function ListUserComponent() {
   const [users, setUsers] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!isAdmin()) {
-      alert('Access denied. Admin only.');
-      router.push('/login');
+      setShowPopup(true);
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
       return;
     }
     getAllUsers();
@@ -42,7 +45,21 @@ export default function ListUserComponent() {
   }
 
   if (!isAdmin()) {
-    return null;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        {showPopup && (
+          <div style={{ padding: '2rem 3rem', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.2)', background: '#dc3545', color: 'white', fontSize: '18px', fontWeight: 'bold', textAlign: 'center', animation: 'fadeIn 0.3s ease-out' }}>
+            🚫 Access Denied<br/><span style={{ fontSize: '14px', fontWeight: 'normal' }}>This page is only accessible to administrators</span>
+          </div>
+        )}
+        <style jsx>{`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
+      </div>
+    );
   }
 
   return (

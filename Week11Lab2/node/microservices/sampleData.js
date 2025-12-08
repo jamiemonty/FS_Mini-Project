@@ -61,12 +61,23 @@ let userSchema = new Schema({
   role: { type: String, default: 'user' }
 }, { collection: 'users' });
 
+let reviewSchema = new Schema({
+  mountainId: String,
+  mountainName: String,
+  userName: String,
+  userEmail: String,
+  rating: Number,
+  comment: String,
+  date: { type: Date, default: Date.now }
+}, { collection: 'reviews' });
+
 let trails = oldMong.model('trails', trailSchema);
 let maps = oldMong.model('maps', mapSchema);
 let camping = oldMong.model('camping', campingSchema);
 let gear = oldMong.model('gear', gearSchema);
 let mountains = oldMong.model('mountains', mountainSchema);
 let users = oldMong.model('users', userSchema);
+let reviews = oldMong.model('reviews', reviewSchema);
 
 const sampleTrails = [
   { name: 'Everest Base Camp', difficulty: 'Hard', distance: '130 km', elevation: '5,364 m', location: 'Nepal', description: 'Trek to the base of the world\'s highest mountain' },
@@ -82,19 +93,19 @@ const sampleMaps = [
 ];
 
 const sampleCamping = [
-  { siteName: 'Namche Bazaar Camp', location: 'Nepal', capacity: '50 people', amenities: 'Toilets, Water, Shelter', price: '$15/night' },
-  { siteName: 'Aguas Calientes Camp', location: 'Peru', capacity: '30 people', amenities: 'Hot Springs, Restaurant', price: '$20/night' },
-  { siteName: 'Chamonix Base Camp', location: 'France', capacity: '40 people', amenities: 'Showers, WiFi, Store', price: '$25/night' },
-  { siteName: 'Barafu Camp', location: 'Tanzania', capacity: '60 people', amenities: 'Medical Station, Guides', price: '$18/night' }
+  { siteName: 'Namche Bazaar Camp', location: 'Nepal', capacity: '50 people', amenities: 'Toilets, Water, Shelter', price: '€14/night' },
+  { siteName: 'Aguas Calientes Camp', location: 'Peru', capacity: '30 people', amenities: 'Hot Springs, Restaurant', price: '€18/night' },
+  { siteName: 'Chamonix Base Camp', location: 'France', capacity: '40 people', amenities: 'Showers, WiFi, Store', price: '€23/night' },
+  { siteName: 'Barafu Camp', location: 'Tanzania', capacity: '60 people', amenities: 'Medical Station, Guides', price: '€17/night' }
 ];
 
 const sampleGear = [
-  { itemName: 'Hiking Boots', category: 'Footwear', description: 'Waterproof trekking boots', price: '$150', recommended: true, shopUrl: 'https://www.rei.com/c/mens-hiking-boots' },
-  { itemName: 'Backpack 60L', category: 'Bags', description: 'Large capacity hiking backpack', price: '$200', recommended: true, shopUrl: 'https://www.rei.com/c/backpacking-packs' },
-  { itemName: 'Sleeping Bag', category: 'Camping', description: '-10°C rated sleeping bag', price: '$120', recommended: true, shopUrl: 'https://www.rei.com/c/sleeping-bags' },
-  { itemName: 'Trekking Poles', category: 'Equipment', description: 'Adjustable aluminum poles', price: '$60', recommended: true, shopUrl: 'https://www.rei.com/c/trekking-poles' },
-  { itemName: 'Water Filter', category: 'Equipment', description: 'Portable water purification', price: '$40', recommended: false, shopUrl: 'https://www.rei.com/c/water-filters-and-purifiers' },
-  { itemName: 'Headlamp', category: 'Lighting', description: 'LED rechargeable headlamp', price: '$35', recommended: true, shopUrl: 'https://www.rei.com/c/headlamps' }
+  { itemName: 'Hiking Boots', category: 'Footwear', description: 'Waterproof trekking boots', price: '€140', recommended: true, shopUrl: 'https://www.rei.com/c/mens-hiking-boots' },
+  { itemName: 'Backpack 60L', category: 'Bags', description: 'Large capacity hiking backpack', price: '€185', recommended: true, shopUrl: 'https://www.rei.com/c/backpacking-packs' },
+  { itemName: 'Sleeping Bag', category: 'Camping', description: '-10°C rated sleeping bag', price: '€110', recommended: true, shopUrl: 'https://www.rei.com/c/sleeping-bags' },
+  { itemName: 'Trekking Poles', category: 'Equipment', description: 'Adjustable aluminum poles', price: '€55', recommended: true, shopUrl: 'https://www.rei.com/c/trekking-poles' },
+  { itemName: 'Water Filter', category: 'Equipment', description: 'Portable water purification', price: '€37', recommended: false, shopUrl: 'https://www.rei.com/c/water-filters-and-purifiers' },
+  { itemName: 'Headlamp', category: 'Lighting', description: 'LED rechargeable headlamp', price: '€32', recommended: true, shopUrl: 'https://www.rei.com/c/headlamps' }
 ];
 
 const sampleUsers = [
@@ -103,17 +114,29 @@ const sampleUsers = [
     email: 'admin@trek.com',
     password: 'admin123',
     accountId: 'ADM001',
-    location: 'Headquarters',
+    location: 'Dublin, Ireland',
     role: 'admin'
   },
   {
-    name: 'John Doe',
-    email: 'john@example.com',
+    name: 'Seán Murphy',
+    email: 'sean@example.com',
     password: 'user123',
     accountId: 'USR001',
-    location: 'New York',
+    location: 'Galway, Ireland',
     role: 'user'
   }
+];
+
+const reviewTemplates = [
+  { mountainName: 'Mount Everest', userName: 'Seán Murphy', userEmail: 'sean@example.com', rating: 5, comment: 'Incredible experience! The views are breathtaking and the challenge is worth every step.', date: new Date('2024-01-15') },
+  { mountainName: 'Mount Everest', userName: 'Aoife O\'Connor', userEmail: 'aoife@example.com', rating: 5, comment: 'Life-changing adventure. Proper preparation is essential!', date: new Date('2024-02-20') },
+  { mountainName: 'K2', userName: 'Liam Kelly', userEmail: 'liam@example.com', rating: 5, comment: 'The ultimate mountaineering challenge. Extremely technical and demanding.', date: new Date('2024-02-10') },
+  { mountainName: 'Kilimanjaro', userName: 'Niamh Byrne', userEmail: 'niamh@example.com', rating: 4, comment: 'Amazing trek through different climate zones. Great for beginners to high altitude.', date: new Date('2024-03-10') },
+  { mountainName: 'Kilimanjaro', userName: 'Ciara Walsh', userEmail: 'ciara@example.com', rating: 5, comment: 'Unforgettable journey to the roof of Africa!', date: new Date('2024-01-20') },
+  { mountainName: 'Mont Blanc', userName: 'Oisín Ryan', userEmail: 'oisin@example.com', rating: 4, comment: 'Beautiful Alpine scenery. The Goûter Route is challenging but manageable.', date: new Date('2024-01-25') },
+  { mountainName: 'Mont Blanc', userName: 'Saoirse Doyle', userEmail: 'saoirse@example.com', rating: 5, comment: 'Classic Alpine climb with stunning views of three countries.', date: new Date('2024-03-05') },
+  { mountainName: 'Matterhorn', userName: 'Conor McCarthy', userEmail: 'conor@example.com', rating: 5, comment: 'Iconic pyramid shape and thrilling climb. Technical skills required!', date: new Date('2024-02-15') },
+  { mountainName: 'Denali', userName: 'Fiona Brennan', userEmail: 'fiona@example.com', rating: 5, comment: 'Extreme cold and altitude. One of the toughest climbs in North America.', date: new Date('2024-01-30') }
 ];
 
 const sampleMountains = [
@@ -193,7 +216,6 @@ const sampleMountains = [
 
 async function insertData() {
   try {
-    // Clear existing data
     await users.deleteMany({});
     console.log('Existing users cleared');
     
@@ -212,8 +234,28 @@ async function insertData() {
     await gear.insertMany(sampleGear);
     console.log('Gear inserted');
     
-    await mountains.insertMany(sampleMountains);
+    const insertedMountains = await mountains.insertMany(sampleMountains);
     console.log('Mountains inserted');
+    
+    // Create reviews with actual mountain IDs
+    const sampleReviews = [];
+    for (const template of reviewTemplates) {
+      const mountain = insertedMountains.find(m => m.mountainName === template.mountainName);
+      if (mountain) {
+        sampleReviews.push({
+          mountainId: mountain._id.toString(),
+          mountainName: template.mountainName,
+          userName: template.userName,
+          userEmail: template.userEmail,
+          rating: template.rating,
+          comment: template.comment,
+          date: template.date
+        });
+      }
+    }
+    
+    await reviews.insertMany(sampleReviews);
+    console.log('Reviews inserted');
     
     console.log('All sample data inserted successfully!');
     process.exit(0);

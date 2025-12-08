@@ -7,18 +7,23 @@ export default function TrekAdminComponent() {
   const [mountains, setMountains] = useState([]);
   const [camping, setCamping] = useState([]);
   const [gear, setGear] = useState([]);
+  const [maps, setMaps] = useState([]);
   const [activeTab, setActiveTab] = useState('mountains');
+  const [showPopup, setShowPopup] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!isAdmin()) {
-      alert('Access denied. Admin only.');
-      router.push('/login');
+      setShowPopup(true);
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
       return;
     }
     getAllMountains();
     getAllCamping();
     getAllGear();
+    getAllMaps();
   }, []);
 
   function getAllMountains() {
@@ -30,16 +35,23 @@ export default function TrekAdminComponent() {
   }
 
   function getAllCamping() {
-    fetch('/api/get-camping')
+    fetch('/api/camping/get-camping')
       .then(res => res.json())
       .then(data => setCamping(data))
       .catch(error => console.error(error));
   }
 
   function getAllGear() {
-    fetch('/api/get-gear')
+    fetch('/api/gear/get-gear')
       .then(res => res.json())
       .then(data => setGear(data))
+      .catch(error => console.error(error));
+  }
+
+  function getAllMaps() {
+    fetch('/api/maps/get-maps')
+      .then(res => res.json())
+      .then(data => setMaps(data))
       .catch(error => console.error(error));
   }
 
@@ -61,7 +73,21 @@ export default function TrekAdminComponent() {
   }
 
   if (!isAdmin()) {
-    return null;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        {showPopup && (
+          <div style={{ padding: '2rem 3rem', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.2)', background: '#dc3545', color: 'white', fontSize: '18px', fontWeight: 'bold', textAlign: 'center', animation: 'fadeIn 0.3s ease-out' }}>
+            🚫 Access Denied<br/><span style={{ fontSize: '14px', fontWeight: 'normal' }}>This page is only accessible to administrators</span>
+          </div>
+        )}
+        <style jsx>{`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
+      </div>
+    );
   }
 
   return (
@@ -90,6 +116,12 @@ export default function TrekAdminComponent() {
           onClick={() => setActiveTab('gear')}
         >
           🥾 Gear
+        </button>
+        <button 
+          className={`btn ${activeTab === 'maps' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('maps')}
+        >
+          🗺️ Trail Maps
         </button>
       </div>
 
@@ -153,13 +185,16 @@ export default function TrekAdminComponent() {
                   <td>{site.price}</td>
                   <td>
                     <button className='btn btn-info' onClick={() => router.push(`/edit-camping/${site._id}`)}>Update</button>
-                    <button className='btn btn-danger' onClick={() => {
-                      if (confirm('Delete this camping site?')) {
-                        fetch('http://localhost:8000/deleteCampingSite', {
+                    <button className='btn btn-danger' onClick={async () => {
+                      try {
+                        await fetch('http://localhost:8000/deleteCampingSite', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({ id: site._id })
-                        }).then(() => getAllCamping());
+                        });
+                        getAllCamping();
+                      } catch (error) {
+                        alert('Failed to delete. Make sure backend server is running.');
                       }
                     }}>Delete</button>
                   </td>
@@ -194,13 +229,58 @@ export default function TrekAdminComponent() {
                   <td>{item.recommended ? '⭐ Yes' : 'No'}</td>
                   <td>
                     <button className='btn btn-info' onClick={() => router.push(`/edit-gear/${item._id}`)}>Update</button>
-                    <button className='btn btn-danger' onClick={() => {
-                      if (confirm('Delete this gear item?')) {
-                        fetch('http://localhost:8000/deleteGear', {
+                    <button className='btn btn-danger' onClick={async () => {
+                      try {
+                        await fetch('http://localhost:8000/deleteGear', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({ id: item._id })
-                        }).then(() => getAllGear());
+                        });
+                        getAllGear();
+                      } catch (error) {
+                        alert('Failed to delete. Make sure backend server is running.');
+                      }
+                    }}>Delete</button>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'maps' && (
+        <div>
+          <button className='btn btn-primary mb-2' onClick={() => router.push('/create-map')}>Add Trail Map</button>
+          <div className='tableWrapper'>
+            <table className='table table-striped table-bordered'>
+            <thead>
+              <tr>
+                <th>Trail Name</th>
+                <th>Region</th>
+                <th>Coordinates</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {maps.map((map) => 
+                <tr key={map._id}>
+                  <td>{map.trailName}</td>
+                  <td>{map.region}</td>
+                  <td>{map.coordinates}</td>
+                  <td>
+                    <button className='btn btn-info' onClick={() => router.push(`/edit-map/${map._id}`)}>Update</button>
+                    <button className='btn btn-danger' onClick={async () => {
+                      try {
+                        await fetch('http://localhost:8000/deleteMap', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ id: map._id })
+                        });
+                        getAllMaps();
+                      } catch (error) {
+                        alert('Failed to delete. Make sure backend server is running.');
                       }
                     }}>Delete</button>
                   </td>
