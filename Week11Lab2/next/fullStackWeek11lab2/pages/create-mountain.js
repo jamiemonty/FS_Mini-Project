@@ -1,9 +1,18 @@
 import { createMountain } from '../services/TrekAdminService';
 import { useRouter } from 'next/router';
 import MountainForm from '../components/mountains/MountainForm';
+import { isAdmin } from '../utils/auth';
+import { useEffect } from 'react';
 
 export default function CreateMountainComponent() {
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isAdmin()) {
+      alert('Access denied. Admin only.');
+      router.push('/login');
+    }
+  }, []);
 
   async function handleSubmit(mountain) {
     try {
@@ -20,6 +29,10 @@ export default function CreateMountainComponent() {
       console.error('Error:', error);
       alert('Error saving mountain: ' + error.message);
     }
+  }
+
+  if (!isAdmin()) {
+    return null;
   }
 
   return <MountainForm onSubmit={handleSubmit} title="Add Mountain" />;

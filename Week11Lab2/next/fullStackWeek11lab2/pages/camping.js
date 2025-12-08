@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 import classes from '../styles/Feature.module.css';
+import { useRouter } from 'next/router';
+import { checkAuth } from '../utils/auth';
 
 export default function CampingPage() {
   const [sites, setSites] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
+    if (!checkAuth()) {
+      alert('Please login to access this page');
+      router.push('/login');
+      return;
+    }
     fetch('/api/get-camping')
       .then(res => res.json())
       .then(data => setSites(data));

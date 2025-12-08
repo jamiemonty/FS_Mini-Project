@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
 import { deleteUser, listUsers } from '../services/UserService';
 import { useRouter } from 'next/router';
+import { isAdmin } from '../utils/auth';
 
 export default function ListUserComponent() {
   const [users, setUsers] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
+    if (!isAdmin()) {
+      alert('Access denied. Admin only.');
+      router.push('/login');
+      return;
+    }
     getAllUsers();
   }, []);
 
@@ -33,6 +39,10 @@ export default function ListUserComponent() {
     }).catch(error => {
       console.error(error);
     });
+  }
+
+  if (!isAdmin()) {
+    return null;
   }
 
   return (

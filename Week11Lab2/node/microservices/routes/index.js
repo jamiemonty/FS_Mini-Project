@@ -14,7 +14,8 @@ let userSchema = new Schema({
   email: String,
   password: String,
   accountId: String,
-  location: String
+  location: String,
+  role: { type: String, default: 'user' }
 }, { collection: 'users' });
 
 let mountainSchema = new Schema({
@@ -59,7 +60,8 @@ let gearSchema = new Schema({
   category: String,
   description: String,
   price: String,
-  recommended: Boolean
+  recommended: Boolean,
+  shopUrl: String
 }, { collection: 'gear' });
 
 let users = oldMong.model('users', userSchema);
