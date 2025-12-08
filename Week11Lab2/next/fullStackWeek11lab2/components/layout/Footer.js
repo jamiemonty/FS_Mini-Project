@@ -1,4 +1,5 @@
 import classes from './Footer.module.css';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -11,10 +12,10 @@ export default function Footer() {
         <div className={classes.footerSection}>
           <h4>Quick Links</h4>
           <ul>
-            <li>Mountain Trails</li>
-            <li>Trail Maps</li>
-            <li>Camping Sites</li>
-            <li>Gear Guide</li>
+            <li><Link href='/trails'>Mountain Trails</Link></li>
+            <li><Link href='/maps'>Trail Maps</Link></li>
+            <li><Link href='/camping'>Camping Sites</Link></li>
+            <li><Link href='/gear'>Gear Guide</Link></li>
           </ul>
         </div>
         <div className={classes.footerSection}>
