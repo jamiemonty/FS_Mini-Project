@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getMountains, listMountains } from '../services/TrekService';
 import styles from './trek-microservice.module.css';
+import { checkAuth } from '../utils/auth';
 
 export default function TrekComponent() {
   const [searchTerm, setMountainId] = useState('');
@@ -14,6 +15,11 @@ export default function TrekComponent() {
   const router = useRouter();
 
   useEffect(() => {
+    if (!checkAuth()) {
+      alert('Please login to access this page');
+      router.push('/login');
+      return;
+    }
     getAllMountains();
   }, []);
 

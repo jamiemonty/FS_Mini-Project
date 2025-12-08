@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function UserLoginComponent() {
   const [email, setEmail] = useState('');
@@ -73,10 +74,15 @@ export default function UserLoginComponent() {
                 />
               </div>
               {error && <p className="text-danger">{error}</p>}
-              <div>
-                <button className='btn btn-primary mb-2' style={{marginLeft: '10px'}} type="submit" disabled={loading}>
+              <div style={{display: 'flex', gap: '10px', marginLeft: '10px'}}>
+                <button className='btn btn-primary mb-2' type="submit" disabled={loading}>
                   {loading ? 'Logging in...' : 'Login'}
                 </button>
+                <Link href='/register'>
+                  <button className='btn btn-secondary mb-2' type="button">
+                    Register
+                  </button>
+                </Link>
               </div>
             </form>
           </div>

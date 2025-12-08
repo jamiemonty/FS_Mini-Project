@@ -35,7 +35,8 @@ let gearSchema = new Schema({
   category: String,
   description: String,
   price: String,
-  recommended: Boolean
+  recommended: Boolean,
+  shopUrl: String
 }, { collection: 'gear' });
 
 let mountainSchema = new Schema({
@@ -51,11 +52,21 @@ let mountainSchema = new Schema({
   bestSeason: String
 }, { collection: 'mountains' });
 
+let userSchema = new Schema({
+  name: String,
+  email: String,
+  password: String,
+  accountId: String,
+  location: String,
+  role: { type: String, default: 'user' }
+}, { collection: 'users' });
+
 let trails = oldMong.model('trails', trailSchema);
 let maps = oldMong.model('maps', mapSchema);
 let camping = oldMong.model('camping', campingSchema);
 let gear = oldMong.model('gear', gearSchema);
 let mountains = oldMong.model('mountains', mountainSchema);
+let users = oldMong.model('users', userSchema);
 
 const sampleTrails = [
   { name: 'Everest Base Camp', difficulty: 'Hard', distance: '130 km', elevation: '5,364 m', location: 'Nepal', description: 'Trek to the base of the world\'s highest mountain' },
@@ -78,12 +89,31 @@ const sampleCamping = [
 ];
 
 const sampleGear = [
-  { itemName: 'Hiking Boots', category: 'Footwear', description: 'Waterproof trekking boots', price: '$150', recommended: true },
-  { itemName: 'Backpack 60L', category: 'Bags', description: 'Large capacity hiking backpack', price: '$200', recommended: true },
-  { itemName: 'Sleeping Bag', category: 'Camping', description: '-10°C rated sleeping bag', price: '$120', recommended: true },
-  { itemName: 'Trekking Poles', category: 'Equipment', description: 'Adjustable aluminum poles', price: '$60', recommended: true },
-  { itemName: 'Water Filter', category: 'Equipment', description: 'Portable water purification', price: '$40', recommended: false },
-  { itemName: 'Headlamp', category: 'Lighting', description: 'LED rechargeable headlamp', price: '$35', recommended: true }
+  { itemName: 'Hiking Boots', category: 'Footwear', description: 'Waterproof trekking boots', price: '$150', recommended: true, shopUrl: 'https://www.rei.com/c/mens-hiking-boots' },
+  { itemName: 'Backpack 60L', category: 'Bags', description: 'Large capacity hiking backpack', price: '$200', recommended: true, shopUrl: 'https://www.rei.com/c/backpacking-packs' },
+  { itemName: 'Sleeping Bag', category: 'Camping', description: '-10°C rated sleeping bag', price: '$120', recommended: true, shopUrl: 'https://www.rei.com/c/sleeping-bags' },
+  { itemName: 'Trekking Poles', category: 'Equipment', description: 'Adjustable aluminum poles', price: '$60', recommended: true, shopUrl: 'https://www.rei.com/c/trekking-poles' },
+  { itemName: 'Water Filter', category: 'Equipment', description: 'Portable water purification', price: '$40', recommended: false, shopUrl: 'https://www.rei.com/c/water-filters-and-purifiers' },
+  { itemName: 'Headlamp', category: 'Lighting', description: 'LED rechargeable headlamp', price: '$35', recommended: true, shopUrl: 'https://www.rei.com/c/headlamps' }
+];
+
+const sampleUsers = [
+  {
+    name: 'Admin User',
+    email: 'admin@trek.com',
+    password: 'admin123',
+    accountId: 'ADM001',
+    location: 'Headquarters',
+    role: 'admin'
+  },
+  {
+    name: 'John Doe',
+    email: 'john@example.com',
+    password: 'user123',
+    accountId: 'USR001',
+    location: 'New York',
+    role: 'user'
+  }
 ];
 
 const sampleMountains = [
@@ -163,6 +193,13 @@ const sampleMountains = [
 
 async function insertData() {
   try {
+    // Clear existing data
+    await users.deleteMany({});
+    console.log('Existing users cleared');
+    
+    await users.insertMany(sampleUsers);
+    console.log('Users inserted');
+    
     await trails.insertMany(sampleTrails);
     console.log('Trails inserted');
     
