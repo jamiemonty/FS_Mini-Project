@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getMountains, listMountains } from '../services/TrekService';
+import styles from './trek-microservice.module.css';
 
 export default function TrekComponent() {
   const [searchTerm, setMountainId] = useState('');
@@ -8,6 +9,7 @@ export default function TrekComponent() {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('cards');
   const [selectedMountain, setSelectedMountain] = useState(null);
+  const [detailView, setDetailView] = useState(null);
   const [review, setReview] = useState({ rating: 5, comment: '' });
   const router = useRouter();
 
@@ -52,50 +54,50 @@ export default function TrekComponent() {
   }
 
   return (
-    <div className='container'>
-      <div className='header'>
-        <div className='icon'>🏔️</div>
-        <h1 className='title'>Mountain Explorer</h1>
-        <p className='subtitle'>Discover breathtaking peaks and plan your next adventure</p>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.icon}>🏔️</div>
+        <h1 className={styles.title}>Mountain Explorer</h1>
+        <p className={styles.subtitle}>Discover breathtaking peaks and plan your next adventure</p>
       </div>
       
-      <div className='searchSection'>
-        <div className='searchBox'>
+      <div className={styles.searchSection}>
+        <div className={styles.searchBox}>
           <input
             type="text"
-            className='searchInput'
+            className={styles.searchInput}
             value={searchTerm}
             onChange={handleSearch}
             placeholder="🔍 Search for a mountain destination..."
           />
-          <button onClick={searchMountain} className='searchButton'>Search</button>
+          <button onClick={searchMountain} className={styles.searchButton}>Search</button>
         </div>
-        <div className='statsBar'>
-          <div className='statItem'>
-            <span className='statIcon'>🏔️</span>
-            <span className='statNumber'>{mountains.length}</span>
-            <span className='statLabel'>Destinations</span>
+        <div className={styles.statsBar}>
+          <div className={styles.statItem}>
+            <span className={styles.statIcon}>🏔️</span>
+            <span className={styles.statNumber}>{mountains.length}</span>
+            <span className={styles.statLabel}>Destinations</span>
           </div>
-          <div className='statItem'>
-            <span className='statIcon'>🌍</span>
-            <span className='statNumber'>50+</span>
-            <span className='statLabel'>Countries</span>
+          <div className={styles.statItem}>
+            <span className={styles.statIcon}>🌍</span>
+            <span className={styles.statNumber}>50+</span>
+            <span className={styles.statLabel}>Countries</span>
           </div>
-          <div className='statItem'>
-            <span className='statIcon'>⭐</span>
-            <span className='statNumber'>4.8</span>
-            <span className='statLabel'>Rating</span>
+          <div className={styles.statItem}>
+            <span className={styles.statIcon}>⭐</span>
+            <span className={styles.statNumber}>4.8</span>
+            <span className={styles.statLabel}>Rating</span>
           </div>
         </div>
-        <div className='viewToggle'>
+        <div className={styles.viewToggle}>
           <button 
-            className={viewMode === 'cards' ? 'active' : ''}
+            className={viewMode === 'cards' ? styles.active : ''}
             onClick={() => setViewMode('cards')}
           >
             🎴 Cards
           </button>
           <button 
-            className={viewMode === 'table' ? 'active' : ''}
+            className={viewMode === 'table' ? styles.active : ''}
             onClick={() => setViewMode('table')}
           >
             📊 Table
@@ -103,66 +105,67 @@ export default function TrekComponent() {
         </div>
       </div>
       {loading ? (
-        <div className='loading'>
-          <div className='spinner'></div>
+        <div className={styles.loading}>
+          <div className={styles.spinner}></div>
           <p>Loading amazing destinations...</p>
         </div>
       ) : mountains.length === 0 ? (
-        <div className='noResults'>
-          <div className='noResultsIcon'>🔍</div>
+        <div className={styles.noResults}>
+          <div className={styles.noResultsIcon}>🔍</div>
           <h3>No Mountains Found</h3>
           <p>Try adjusting your search or explore all destinations</p>
         </div>
       ) : (
-      <div className='destinationsSection'>
-        <h2 className='sectionTitle'>Available Destinations</h2>
+      <div className={styles.destinationsSection}>
+        <h2 className={styles.sectionTitle}>Available Destinations</h2>
         
         {viewMode === 'cards' ? (
-          <div className='cardsGrid'>
+          <div className={styles.cardsGrid}>
             {mountains.map(mountain => (
-              <div key={mountain._id} className='mountainCard'>
-                <div className='cardImage' style={{backgroundImage: `url(${mountain.image || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800'})`}}>
-                  <div className='cardOverlay'>
-                    <div className='ratingBadge'>⭐ {mountain.rating || 0}/5</div>
+              <div key={mountain._id} className={styles.mountainCard} onClick={() => setDetailView(mountain)}>
+                <div className={styles.cardImage} style={{backgroundImage: `url(${mountain.image || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800'})`}}>
+                  <div className={styles.cardOverlay}>
+                    <div className={styles.ratingBadge}>⭐ {mountain.rating || 0}/5</div>
                   </div>
                 </div>
-                <div className='cardContent'>
-                  <h3 className='mountainName'>{mountain.mountainName || 'Unknown Mountain'}</h3>
-                  <div className='infoGrid'>
-                    <div className='infoItem'>
-                      <span className='infoIcon'>⏱️</span>
+                <div className={styles.cardContent}>
+                  <h3 className={styles.mountainName}>{mountain.mountainName || 'Unknown Mountain'}</h3>
+                  <div className={styles.infoGrid}>
+                    <div className={styles.infoItem}>
+                      <span className={styles.infoIcon}>⏱️</span>
                       <div>
-                        <div className='infoLabel'>Trip Length</div>
-                        <div className='infoValue'>{mountain.tripLength || 'N/A'}</div>
+                        <div className={styles.infoLabel}>Trip Length</div>
+                        <div className={styles.infoValue}>{mountain.tripLength || 'N/A'}</div>
                       </div>
                     </div>
-                    <div className='infoItem'>
-                      <span className='infoIcon'>📍</span>
+                    <div className={styles.infoItem}>
+                      <span className={styles.infoIcon}>📍</span>
                       <div>
-                        <div className='infoLabel'>Location</div>
-                        <div className='infoValue'>{mountain.location || 'N/A'}</div>
+                        <div className={styles.infoLabel}>Location</div>
+                        <div className={styles.infoValue}>{mountain.location || 'N/A'}</div>
                       </div>
                     </div>
-                    <div className='infoItem'>
-                      <span className='infoIcon'>⛰️</span>
+                    <div className={styles.infoItem}>
+                      <span className={styles.infoIcon}>⛰️</span>
                       <div>
-                        <div className='infoLabel'>Mountain Location</div>
-                        <div className='infoValue'>{mountain.mountainLocation || 'N/A'}</div>
+                        <div className={styles.infoLabel}>Mountain Location</div>
+                        <div className={styles.infoValue}>{mountain.mountainLocation || 'N/A'}</div>
                       </div>
                     </div>
                   </div>
-                  <div className='cardActions'>
+                  <div className={styles.cardActions}>
                     <a 
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((mountain.mountainLocation || '') + ' ' + (mountain.location || ''))}`}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='mapBtn'
+                      className={styles.mapBtn}
+                      onClick={(e) => e.stopPropagation()}
                     >
                       🗺️ View on Map
                     </a>
                     <button 
-                      className='reviewBtn'
-                      onClick={() => setSelectedMountain(mountain)}
+                      className={styles.reviewBtn}
+                      onClick={(e) => { e.stopPropagation(); setSelectedMountain(mountain); }}
                     >
                       ⭐ Review
                     </button>
@@ -172,8 +175,8 @@ export default function TrekComponent() {
             ))}
           </div>
         ) : (
-        <div className='tableWrapper'>
-        <table className='table table-striped table-bordered'>
+        <div className={styles.tableWrapper}>
+        <table className={styles.table}>
         <thead>
           <tr>
             <th>Mountain Name</th>
@@ -200,19 +203,104 @@ export default function TrekComponent() {
       </div>
       )}
       
+      {detailView && (
+        <div className={styles.detailModal} onClick={() => setDetailView(null)}>
+          <div className={styles.detailModalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeBtn} onClick={() => setDetailView(null)}>×</button>
+            <div className={styles.detailImage} style={{backgroundImage: `url(${detailView.image || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200'})`}}>
+              <div className={styles.detailOverlay}>
+                <h1 className={styles.detailTitle}>{detailView.mountainName}</h1>
+                <div className={styles.detailRating}>⭐ {detailView.rating || 0}/5</div>
+              </div>
+            </div>
+            <div className={styles.detailBody}>
+              {detailView.description && (
+                <div className={styles.detailSection}>
+                  <h3>📖 About This Mountain</h3>
+                  <p className={styles.detailDescription}>{detailView.description}</p>
+                </div>
+              )}
+              <div className={styles.detailSection}>
+                <h3>📋 Trip Information</h3>
+                <div className={styles.detailGrid}>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailIcon}>⏱️</span>
+                    <div>
+                      <div className={styles.detailLabel}>Trip Length</div>
+                      <div className={styles.detailValue}>{detailView.tripLength || 'N/A'}</div>
+                    </div>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailIcon}>📍</span>
+                    <div>
+                      <div className={styles.detailLabel}>Location</div>
+                      <div className={styles.detailValue}>{detailView.location || 'N/A'}</div>
+                    </div>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailIcon}>⛰️</span>
+                    <div>
+                      <div className={styles.detailLabel}>Mountain Location</div>
+                      <div className={styles.detailValue}>{detailView.mountainLocation || 'N/A'}</div>
+                    </div>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailIcon}>🎯</span>
+                    <div>
+                      <div className={styles.detailLabel}>Difficulty</div>
+                      <div className={styles.detailValue}>{detailView.difficulty || 'N/A'}</div>
+                    </div>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailIcon}>📏</span>
+                    <div>
+                      <div className={styles.detailLabel}>Elevation</div>
+                      <div className={styles.detailValue}>{detailView.elevation || 'N/A'}</div>
+                    </div>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailIcon}>🌤️</span>
+                    <div>
+                      <div className={styles.detailLabel}>Best Season</div>
+                      <div className={styles.detailValue}>{detailView.bestSeason || 'N/A'}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.detailActions}>
+                <a 
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((detailView.mountainLocation || '') + ' ' + (detailView.location || ''))}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className={styles.detailMapBtn}
+                >
+                  🗺️ View on Map
+                </a>
+                <button 
+                  className={styles.detailReviewBtn}
+                  onClick={() => { setDetailView(null); setSelectedMountain(detailView); }}
+                >
+                  ⭐ Leave a Review
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {selectedMountain && (
-        <div className='modal' onClick={() => setSelectedMountain(null)}>
-          <div className='modalContent' onClick={(e) => e.stopPropagation()}>
-            <button className='closeBtn' onClick={() => setSelectedMountain(null)}>×</button>
+        <div className={styles.modal} onClick={() => setSelectedMountain(null)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.closeBtn} onClick={() => setSelectedMountain(null)}>×</button>
             <h2>⭐ Review {selectedMountain.mountainName}</h2>
-            <div className='reviewForm'>
-              <div className='ratingSection'>
+            <div className={styles.reviewForm}>
+              <div className={styles.ratingSection}>
                 <label>Rating:</label>
-                <div className='stars'>
+                <div className={styles.stars}>
                   {[1, 2, 3, 4, 5].map(star => (
                     <span
                       key={star}
-                      className={star <= review.rating ? 'starActive' : 'star'}
+                      className={star <= review.rating ? styles.starActive : styles.star}
                       onClick={() => setReview({...review, rating: star})}
                     >
                       ⭐
@@ -220,7 +308,7 @@ export default function TrekComponent() {
                   ))}
                 </div>
               </div>
-              <div className='commentSection'>
+              <div className={styles.commentSection}>
                 <label>Your Review:</label>
                 <textarea
                   value={review.comment}
@@ -230,7 +318,7 @@ export default function TrekComponent() {
                 />
               </div>
               <button 
-                className='submitBtn'
+                className={styles.submitBtn}
                 onClick={() => handleReviewSubmit(selectedMountain.id)}
               >
                 Submit Review

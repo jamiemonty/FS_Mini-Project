@@ -38,10 +38,24 @@ let gearSchema = new Schema({
   recommended: Boolean
 }, { collection: 'gear' });
 
+let mountainSchema = new Schema({
+  mountainName: String,
+  tripLength: String,
+  location: String,
+  mountainLocation: String,
+  image: String,
+  rating: Number,
+  description: String,
+  difficulty: String,
+  elevation: String,
+  bestSeason: String
+}, { collection: 'mountains' });
+
 let trails = oldMong.model('trails', trailSchema);
 let maps = oldMong.model('maps', mapSchema);
 let camping = oldMong.model('camping', campingSchema);
 let gear = oldMong.model('gear', gearSchema);
+let mountains = oldMong.model('mountains', mountainSchema);
 
 const sampleTrails = [
   { name: 'Everest Base Camp', difficulty: 'Hard', distance: '130 km', elevation: '5,364 m', location: 'Nepal', description: 'Trek to the base of the world\'s highest mountain' },
@@ -72,6 +86,81 @@ const sampleGear = [
   { itemName: 'Headlamp', category: 'Lighting', description: 'LED rechargeable headlamp', price: '$35', recommended: true }
 ];
 
+const sampleMountains = [
+  {
+    mountainName: 'Mount Everest',
+    tripLength: '12-14 days',
+    location: 'Nepal',
+    mountainLocation: 'Himalayas, Mahalangur Range',
+    image: 'https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=1200',
+    rating: 5,
+    description: 'Mount Everest is Earth\'s highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas. The summit sits at 8,848.86 meters, attracting experienced mountaineers from around the world. The climb is extremely challenging, requiring extensive preparation, acclimatization, and technical climbing skills.',
+    difficulty: 'Expert',
+    elevation: '8,848.86m (29,032ft)',
+    bestSeason: 'April-May, September-October'
+  },
+  {
+    mountainName: 'K2',
+    tripLength: '60-75 days',
+    location: 'Pakistan/China',
+    mountainLocation: 'Karakoram Range',
+    image: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1200',
+    rating: 5,
+    description: 'K2, also known as Mount Godwin-Austen or Chhogori, is the second highest mountain in the world at 8,611 meters. It is considered more technically difficult to climb than Everest, with a fatality rate of about 25%. The mountain is known for its steep faces and unpredictable weather conditions.',
+    difficulty: 'Expert',
+    elevation: '8,611m (28,251ft)',
+    bestSeason: 'June-August'
+  },
+  {
+    mountainName: 'Kilimanjaro',
+    tripLength: '5-9 days',
+    location: 'Tanzania',
+    mountainLocation: 'Eastern Rift Mountains',
+    image: 'https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=1200',
+    rating: 4,
+    description: 'Mount Kilimanjaro is Africa\'s highest peak and the world\'s tallest free-standing mountain. Unlike many high peaks, it doesn\'t require technical climbing skills, making it accessible to fit hikers. The trek passes through five distinct climate zones, from tropical rainforest to arctic summit.',
+    difficulty: 'Moderate',
+    elevation: '5,895m (19,341ft)',
+    bestSeason: 'January-March, June-October'
+  },
+  {
+    mountainName: 'Mont Blanc',
+    tripLength: '2-3 days',
+    location: 'France/Italy',
+    mountainLocation: 'Graian Alps',
+    image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=1200',
+    rating: 4,
+    description: 'Mont Blanc is the highest mountain in the Alps and Western Europe, standing at 4,808 meters. The most popular route is via the Goûter Route, which requires good physical fitness and basic mountaineering skills. The mountain offers stunning views of the surrounding Alpine peaks.',
+    difficulty: 'Hard',
+    elevation: '4,808m (15,774ft)',
+    bestSeason: 'June-September'
+  },
+  {
+    mountainName: 'Matterhorn',
+    tripLength: '2-3 days',
+    location: 'Switzerland/Italy',
+    mountainLocation: 'Pennine Alps',
+    image: 'https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=1200',
+    rating: 5,
+    description: 'The Matterhorn is one of the most iconic and photographed mountains in the world, known for its distinctive pyramid shape. At 4,478 meters, it presents a serious mountaineering challenge with exposed rock climbing and steep snow slopes. The Hörnli Ridge is the most common route.',
+    difficulty: 'Expert',
+    elevation: '4,478m (14,692ft)',
+    bestSeason: 'July-September'
+  },
+  {
+    mountainName: 'Denali',
+    tripLength: '17-21 days',
+    location: 'Alaska, USA',
+    mountainLocation: 'Alaska Range',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200',
+    rating: 5,
+    description: 'Denali, formerly known as Mount McKinley, is North America\'s highest peak at 6,190 meters. The extreme cold, severe weather, and high altitude make it one of the most challenging climbs in the world. The West Buttress route is the most popular, requiring glacier travel and cold-weather camping skills.',
+    difficulty: 'Expert',
+    elevation: '6,190m (20,310ft)',
+    bestSeason: 'May-July'
+  }
+];
+
 async function insertData() {
   try {
     await trails.insertMany(sampleTrails);
@@ -85,6 +174,9 @@ async function insertData() {
     
     await gear.insertMany(sampleGear);
     console.log('Gear inserted');
+    
+    await mountains.insertMany(sampleMountains);
+    console.log('Mountains inserted');
     
     console.log('All sample data inserted successfully!');
     process.exit(0);
