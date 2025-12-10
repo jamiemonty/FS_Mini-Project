@@ -5,12 +5,12 @@ import { checkAuth } from '../utils/auth';
 
 export default function MapsPage() {
   const [maps, setMaps] = useState([]);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!checkAuth()) {
-      alert('Please login to access this page');
-      router.push('/login');
+      setShowLoginPopup(true);
       return;
     }
     fetch('/api/maps/get-maps')
@@ -24,6 +24,7 @@ export default function MapsPage() {
       <p className={classes.subtitle}>Detailed routes and coordinates for your journey</p>
       <div className={classes.grid}>
         {maps.map((map, index) => {
+          //Create a google map search URL based on coordinates
           const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(map.coordinates)}`;
           return (
             <div 
@@ -40,6 +41,30 @@ export default function MapsPage() {
           );
         })}
       </div>
+      
+      {showLoginPopup && (
+        <div className={classes.loginPopup}>
+          <div className={classes.loginPopupContent}>
+            <div className={classes.loginIcon}>🗺️</div>
+            <h2 className={classes.loginTitle}>Login Required</h2>
+            <p className={classes.loginMessage}>You need to log in to access Trail Maps</p>
+            <div className={classes.loginActions}>
+              <button 
+                className={classes.loginBtn}
+                onClick={() => router.push('/login')}
+              >
+                Go to Login
+              </button>
+              <button 
+                className={classes.cancelBtn}
+                onClick={() => router.push('/')}
+              >
+                Back to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

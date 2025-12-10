@@ -5,12 +5,12 @@ import { checkAuth } from '../utils/auth';
 
 export default function CampingPage() {
   const [sites, setSites] = useState([]);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!checkAuth()) {
-      alert('Please login to access this page');
-      router.push('/login');
+      setShowLoginPopup(true);
       return;
     }
     fetch('/api/camping/get-camping')
@@ -33,6 +33,30 @@ export default function CampingPage() {
           </div>
         ))}
       </div>
+      
+      {showLoginPopup && (
+        <div className={classes.loginPopup}>
+          <div className={classes.loginPopupContent}>
+            <div className={classes.loginIcon}>⛺</div>
+            <h2 className={classes.loginTitle}>Login Required</h2>
+            <p className={classes.loginMessage}>You need to log in to access Camping Sites</p>
+            <div className={classes.loginActions}>
+              <button 
+                className={classes.loginBtn}
+                onClick={() => router.push('/login')}
+              >
+                Go to Login
+              </button>
+              <button 
+                className={classes.cancelBtn}
+                onClick={() => router.push('/')}
+              >
+                Back to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

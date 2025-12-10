@@ -12,12 +12,12 @@ export default function TrekComponent() {
   const [selectedMountain, setSelectedMountain] = useState(null);
   const [detailView, setDetailView] = useState(null);
   const [review, setReview] = useState({ rating: 5, comment: '' });
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!checkAuth()) {
-      alert('Please login to access this page');
-      router.push('/login');
+      setShowLoginPopup(true);
       return;
     }
     getAllMountains();
@@ -328,6 +328,30 @@ export default function TrekComponent() {
                 onClick={() => handleReviewSubmit(selectedMountain.id)}
               >
                 Submit Review
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showLoginPopup && (
+        <div className={styles.loginPopup}>
+          <div className={styles.loginPopupContent}>
+            <div className={styles.loginIcon}>🔐</div>
+            <h2 className={styles.loginTitle}>Login Required</h2>
+            <p className={styles.loginMessage}>You need to log in to access the Mountain Explorer</p>
+            <div className={styles.loginActions}>
+              <button 
+                className={styles.loginBtn}
+                onClick={() => router.push('/login')}
+              >
+                Go to Login
+              </button>
+              <button 
+                className={styles.cancelBtn}
+                onClick={() => router.push('/')}
+              >
+                Back to Home
               </button>
             </div>
           </div>

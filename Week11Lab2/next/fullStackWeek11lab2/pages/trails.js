@@ -5,12 +5,12 @@ import { checkAuth } from '../utils/auth';
 
 export default function TrailsPage() {
   const [trails, setTrails] = useState([]);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (!checkAuth()) {
-      alert('Please login to access this page');
-      router.push('/login');
+      setShowLoginPopup(true);
       return;
     }
     fetch('/api/trails/get-trails')
@@ -34,6 +34,30 @@ export default function TrailsPage() {
           </div>
         ))}
       </div>
+      
+      {showLoginPopup && (
+        <div className={classes.loginPopup}>
+          <div className={classes.loginPopupContent}>
+            <div className={classes.loginIcon}>🔒</div>
+            <h2 className={classes.loginTitle}>Login Required</h2>
+            <p className={classes.loginMessage}>You need to log in to access Mountain Trails</p>
+            <div className={classes.loginActions}>
+              <button 
+                className={classes.loginBtn}
+                onClick={() => router.push('/login')}
+              >
+                Go to Login
+              </button>
+              <button 
+                className={classes.cancelBtn}
+                onClick={() => router.push('/')}
+              >
+                Back to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,10 +1,31 @@
-// Run this file once to insert sample data: node sampleData.js
-
 let Mongoose = require('mongoose').Mongoose;
 let Schema = require('mongoose').Schema;
 
 let oldMong = new Mongoose();
 oldMong.connect('mongodb://127.0.0.1:27017/db');
+
+// Schema definitions
+let userSchema = new Schema({
+  name: String,
+  email: String,
+  password: String,
+  accountId: String,
+  location: String,
+  role: { type: String, default: 'user' }
+}, { collection: 'users' });
+
+let mountainSchema = new Schema({
+  mountainName: String,
+  tripLength: String,
+  location: String,
+  mountainLocation: String,
+  image: String,
+  rating: Number,
+  description: String,
+  difficulty: String,
+  elevation: String,
+  bestSeason: String
+}, { collection: 'mountains' });
 
 let trailSchema = new Schema({
   name: String,
@@ -39,28 +60,6 @@ let gearSchema = new Schema({
   shopUrl: String
 }, { collection: 'gear' });
 
-let mountainSchema = new Schema({
-  mountainName: String,
-  tripLength: String,
-  location: String,
-  mountainLocation: String,
-  image: String,
-  rating: Number,
-  description: String,
-  difficulty: String,
-  elevation: String,
-  bestSeason: String
-}, { collection: 'mountains' });
-
-let userSchema = new Schema({
-  name: String,
-  email: String,
-  password: String,
-  accountId: String,
-  location: String,
-  role: { type: String, default: 'user' }
-}, { collection: 'users' });
-
 let reviewSchema = new Schema({
   mountainId: String,
   mountainName: String,
@@ -71,32 +70,32 @@ let reviewSchema = new Schema({
   date: { type: Date, default: Date.now }
 }, { collection: 'reviews' });
 
+// Models
+let users = oldMong.model('users', userSchema);
+let mountains = oldMong.model('mountains', mountainSchema);
 let trails = oldMong.model('trails', trailSchema);
 let maps = oldMong.model('maps', mapSchema);
 let camping = oldMong.model('camping', campingSchema);
 let gear = oldMong.model('gear', gearSchema);
-let mountains = oldMong.model('mountains', mountainSchema);
-let users = oldMong.model('users', userSchema);
 let reviews = oldMong.model('reviews', reviewSchema);
 
+// Sample data
 const sampleTrails = [
-  { name: 'Everest Base Camp', difficulty: 'Hard', distance: '130 km', elevation: '5,364 m', location: 'Nepal', description: 'Trek to the base of the world\'s highest mountain' },
-  { name: 'Inca Trail', difficulty: 'Moderate', distance: '43 km', elevation: '4,215 m', location: 'Peru', description: 'Ancient path to Machu Picchu' },
-  { name: 'Tour du Mont Blanc', difficulty: 'Moderate', distance: '170 km', elevation: '2,665 m', location: 'France/Italy/Switzerland', description: 'Circle the Mont Blanc massif' },
-  { name: 'Kilimanjaro', difficulty: 'Hard', distance: '62 km', elevation: '5,895 m', location: 'Tanzania', description: 'Summit Africa\'s highest peak' }
+  { name: 'Wicklow Way', difficulty: 'Moderate', distance: '127km', elevation: '600m', location: 'Wicklow, Ireland', description: 'Ireland\'s oldest waymarked trail through the Garden of Ireland' },
+  { name: 'Dingle Way', difficulty: 'Easy', distance: '179km', elevation: '400m', location: 'Kerry, Ireland', description: 'Circular route around the Dingle Peninsula with stunning coastal views' },
+  { name: 'Beara Way', difficulty: 'Moderate', distance: '196km', elevation: '500m', location: 'Cork/Kerry, Ireland', description: 'Remote peninsula walk with dramatic mountain and sea views' }
 ];
 
 const sampleMaps = [
-  { trailName: 'Everest Base Camp', mapUrl: 'https://maps.example.com/ebc', coordinates: '27.9881° N, 86.9250° E', region: 'Himalayas' },
-  { trailName: 'Inca Trail', mapUrl: 'https://maps.example.com/inca', coordinates: '13.1631° S, 72.5450° W', region: 'Andes' },
-  { trailName: 'Tour du Mont Blanc', mapUrl: 'https://maps.example.com/tmb', coordinates: '45.8326° N, 6.8652° E', region: 'Alps' }
+  { trailName: 'Wicklow Way', mapUrl: 'https://www.wicklowway.com/map', coordinates: '53.0781, -6.4034', region: 'Leinster' },
+  { trailName: 'Dingle Way', mapUrl: 'https://www.dingleway.com/map', coordinates: '52.1412, -10.2681', region: 'Munster' },
+  { trailName: 'Beara Way', mapUrl: 'https://www.bearaway.com/map', coordinates: '51.7520, -9.9320', region: 'Munster' }
 ];
 
 const sampleCamping = [
-  { siteName: 'Namche Bazaar Camp', location: 'Nepal', capacity: '50 people', amenities: 'Toilets, Water, Shelter', price: '€14/night' },
-  { siteName: 'Aguas Calientes Camp', location: 'Peru', capacity: '30 people', amenities: 'Hot Springs, Restaurant', price: '€18/night' },
-  { siteName: 'Chamonix Base Camp', location: 'France', capacity: '40 people', amenities: 'Showers, WiFi, Store', price: '€23/night' },
-  { siteName: 'Barafu Camp', location: 'Tanzania', capacity: '60 people', amenities: 'Medical Station, Guides', price: '€17/night' }
+  { siteName: 'Glenveagh National Park', location: 'Donegal', capacity: '50 tents', amenities: 'Toilets, Water, Fire pits', price: '€15/night' },
+  { siteName: 'Killarney National Park', location: 'Kerry', capacity: '100 tents', amenities: 'Toilets, Showers, Shop', price: '€20/night' },
+  { siteName: 'Wicklow Mountains', location: 'Wicklow', capacity: '30 tents', amenities: 'Basic facilities', price: '€12/night' }
 ];
 
 const sampleGear = [
@@ -171,8 +170,8 @@ const sampleMountains = [
     mountainLocation: 'Eastern Rift Mountains',
     image: 'https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=1200',
     rating: 4,
-    description: 'Mount Kilimanjaro is Africa\'s highest peak and the world\'s tallest free-standing mountain. Unlike many high peaks, it doesn\'t require technical climbing skills, making it accessible to fit hikers. The trek passes through five distinct climate zones, from tropical rainforest to arctic summit.',
-    difficulty: 'Moderate',
+    description: 'Mount Kilimanjaro is Africa\'s highest peak and the world\'s tallest free-standing mountain. Unlike many high peaks, it doesn\'t require technical climbing skills, making it accessible to fit hikers. The trek passes through five distinct climate zones, from tropical rainforest to arctic summit. Brian OShea once climed this mountain',
+    difficulty: 'Extreme',
     elevation: '5,895m (19,341ft)',
     bestSeason: 'January-March, June-October'
   },
@@ -217,7 +216,13 @@ const sampleMountains = [
 async function insertData() {
   try {
     await users.deleteMany({});
-    console.log('Existing users cleared');
+    await trails.deleteMany({});
+    await maps.deleteMany({});
+    await camping.deleteMany({});
+    await gear.deleteMany({});
+    await mountains.deleteMany({});
+    await reviews.deleteMany({});
+    console.log('All existing data cleared');
     
     await users.insertMany(sampleUsers);
     console.log('Users inserted');
