@@ -170,7 +170,7 @@ const sampleMountains = [
     mountainLocation: 'Eastern Rift Mountains',
     image: 'https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=1200',
     rating: 4,
-    description: 'Mount Kilimanjaro is Africa\'s highest peak and the world\'s tallest free-standing mountain. Unlike many high peaks, it doesn\'t require technical climbing skills, making it accessible to fit hikers. The trek passes through five distinct climate zones, from tropical rainforest to arctic summit. Brian OShea once climed this mountain',
+    description: 'Mount Kilimanjaro is Africa\'s highest peak and the world\'s tallest free-standing mountain. Unlike many high peaks, it doesn\'t require technical climbing skills, making it accessible to fit hikers. The trek passes through five distinct climate zones, from tropical rainforest to arctic summit. Brian OShea once climbed this mountain',
     difficulty: 'Extreme',
     elevation: '5,895m (19,341ft)',
     bestSeason: 'January-March, June-October'
