@@ -99,12 +99,12 @@ const sampleCamping = [
 ];
 
 const sampleGear = [
-  { itemName: 'Hiking Boots', category: 'Footwear', description: 'Waterproof trekking boots', price: '€140', recommended: true, shopUrl: 'https://www.rei.com/c/mens-hiking-boots' },
-  { itemName: 'Backpack 60L', category: 'Bags', description: 'Large capacity hiking backpack', price: '€185', recommended: true, shopUrl: 'https://www.rei.com/c/backpacking-packs' },
-  { itemName: 'Sleeping Bag', category: 'Camping', description: '-10°C rated sleeping bag', price: '€110', recommended: true, shopUrl: 'https://www.rei.com/c/sleeping-bags' },
-  { itemName: 'Trekking Poles', category: 'Equipment', description: 'Adjustable aluminum poles', price: '€55', recommended: true, shopUrl: 'https://www.rei.com/c/trekking-poles' },
-  { itemName: 'Water Filter', category: 'Equipment', description: 'Portable water purification', price: '€37', recommended: false, shopUrl: 'https://www.rei.com/c/water-filters-and-purifiers' },
-  { itemName: 'Headlamp', category: 'Lighting', description: 'LED rechargeable headlamp', price: '€32', recommended: true, shopUrl: 'https://www.rei.com/c/headlamps' }
+  { itemName: 'Hiking Boots', category: 'Footwear', description: 'Waterproof trekking boots', price: '€140', recommended: true, shopUrl: 'https://www.decathlon.ie/search/?query=trekking+boots' },
+  { itemName: 'Backpack 60L', category: 'Bags', description: 'Large capacity hiking backpack', price: '€185', recommended: true, shopUrl: 'https://www.decathlon.ie/search/?query=Hiking+backpack' },
+  { itemName: 'Sleeping Bag', category: 'Camping', description: '-10°C rated sleeping bag', price: '€110', recommended: true, shopUrl: 'https://www.decathlon.ie/search/?query=sleeping+bags' },
+  { itemName: 'Trekking Poles', category: 'Equipment', description: 'Adjustable aluminum poles', price: '€55', recommended: true, shopUrl: 'https://www.decathlon.ie/search/?query=Trekking+poles' },
+  { itemName: 'Water Filter', category: 'Equipment', description: 'Portable water purification', price: '€37', recommended: false, shopUrl: 'https://www.decathlon.ie/search/?query=water+filter' },
+  { itemName: 'Headlamp', category: 'Lighting', description: 'LED rechargeable headlamp', price: '€32', recommended: true, shopUrl: 'https://www.decathlon.ie/search/?query=Headlamp' }
 ];
 
 const sampleUsers = [
